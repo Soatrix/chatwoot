@@ -5,11 +5,11 @@ import BasePaywallModal from 'dashboard/routes/dashboard/settings/components/Bas
 const props = defineProps({
   isSuperAdmin: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   isOnChatwootCloud: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 

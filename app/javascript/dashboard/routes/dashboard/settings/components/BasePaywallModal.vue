@@ -10,11 +10,11 @@ defineProps({
   },
   isOnChatwootCloud: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   isSuperAdmin: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 

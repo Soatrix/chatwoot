@@ -6,7 +6,7 @@ import DropdownBody from './base/DropdownBody.vue';
 import DropdownSection from './base/DropdownSection.vue';
 import DropdownItem from './base/DropdownItem.vue';
 import DropdownSeparator from './base/DropdownSeparator.vue';
-import WootSwitch from 'components/ui/Switch.vue';
+import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
 
 const currentUserAutoOffline = ref(false);
 
@@ -14,22 +14,22 @@ const menuItems = ref([
   {
     label: 'Contact Support',
     icon: 'i-lucide-life-buoy',
-    click: () => window.alert('Contact Support'),
+    click: () => console.log('Contact Support'),
   },
   {
     label: 'Keyboard Shortcuts',
     icon: 'i-lucide-keyboard',
-    click: () => window.alert('Keyboard Shortcuts'),
+    click: () => console.log('Keyboard Shortcuts'),
   },
   {
     label: 'Profile Settings',
     icon: 'i-lucide-user-pen',
-    click: () => window.alert('Profile Settings'),
+    click: () => console.log('Profile Settings'),
   },
   {
     label: 'Change Appearance',
     icon: 'i-lucide-swatch-book',
-    click: () => window.alert('Change Appearance'),
+    click: () => console.log('Change Appearance'),
   },
   {
     label: 'Open SuperAdmin',
@@ -40,7 +40,7 @@ const menuItems = ref([
   {
     label: 'Log Out',
     icon: 'i-lucide-log-out',
-    click: () => window.alert('Log Out'),
+    click: () => console.log('Log Out'),
   },
 ]);
 </script>
@@ -51,7 +51,7 @@ const menuItems = ref([
     :layout="{ type: 'grid', width: 400, height: 800 }"
   >
     <Variant title="Profile Menu">
-      <div class="p-4 bg-white h-[500px] dark:bg-slate-900">
+      <div class="p-4 bg-n-background h-[500px]">
         <DropdownContainer>
           <template #trigger="{ toggle }">
             <Button label="Open Menu" size="sm" @click="toggle" />
@@ -61,7 +61,7 @@ const menuItems = ref([
               <DropdownItem label="Contact Support" class="justify-between">
                 <span>{{ $t('SIDEBAR.SET_AUTO_OFFLINE.TEXT') }}</span>
                 <div class="flex-shrink-0">
-                  <WootSwitch v-model="currentUserAutoOffline" />
+                  <ToggleSwitch v-model="currentUserAutoOffline" />
                 </div>
               </DropdownItem>
             </DropdownSection>

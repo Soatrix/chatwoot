@@ -2,10 +2,12 @@
 import { computed, defineModel, h, watch, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import Button from 'next/button/Button.vue';
+import Input from 'dashboard/components-next/input/Input.vue';
 import FilterSelect from './inputs/FilterSelect.vue';
 import MultiSelect from './inputs/MultiSelect.vue';
 import SingleSelect from './inputs/SingleSelect.vue';
 
+import { useSnakeCase } from 'dashboard/composables/useTransformKeys';
 import { validateSingleFilter } from 'dashboard/helper/validations.js';
 
 // filterTypes: import('vue').ComputedRef<FilterType[]>
@@ -91,11 +93,20 @@ const booleanOptions = computed(() => [
 ]);
 
 const validationError = computed(() => {
-  return validateSingleFilter({
-    attributeKey: attributeKey.value,
-    filter_operator: filterOperator.value,
-    values: values.value,
-  });
+  // TOOD: Migrate validateSingleFilter to use camelcase and then remove useSnakeCase here too
+  return validateSingleFilter(
+    useSnakeCase({
+      attributeKey: attributeKey.value,
+      filterOperator: filterOperator.value,
+      values: values.value,
+    })
+  );
+});
+
+const inputFieldType = computed(() => {
+  if (inputType.value === 'date') return 'date';
+  if (inputType.value === 'number') return 'number';
+  return 'text';
 });
 
 const resetModelOnAttributeKeyChange = newAttributeKey => {
@@ -174,11 +185,11 @@ defineExpose({ validate });
           disable-search
           :options="booleanOptions"
         />
-        <input
+        <Input
           v-else
           v-model="values"
-          :type="inputType === 'date' ? 'date' : 'text'"
-          class="py-1.5 px-3 text-n-slate-12 bg-n-alpha-1 text-sm rounded-lg reset-base"
+          :type="inputFieldType"
+          class="[&>input]:h-8 [&>input]:py-1.5 [&>input]:outline-offset-0"
           :placeholder="t('FILTER.INPUT_PLACEHOLDER')"
         />
       </template>
@@ -187,6 +198,7 @@ defineExpose({ validate });
         solid
         slate
         icon="i-lucide-trash"
+        class="flex-shrink-0"
         @click.stop="emit('remove')"
       />
     </div>

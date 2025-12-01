@@ -17,6 +17,11 @@
     "IP_ADDRESS": "آدرس آی‌پی",
     "CREATED_AT_LABEL": "ایجاد شده",
     "NEW_MESSAGE": "پیام جدید",
+    "CALL": "تماس",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
+    },
     "CONVERSATIONS": {
       "NO_RECORDS_FOUND": "این اولین گفتگوی این کاربر است.",
       "TITLE": "گفتگوهای قبلی"
@@ -56,46 +61,6 @@
     "BUTTON_LABEL": "ویرایش مخاطب",
     "TITLE": "ویرایش مخاطب",
     "DESC": "ویرایش اطلاعات مخاطب"
-  },
-  "CREATE_CONTACT": {
-    "BUTTON_LABEL": "مخاطب جدید",
-    "TITLE": "ایجاد مخاطب جدید",
-    "DESC": "اطلاعات اولیه درباره مخاطب را اضافه کنید."
-  },
-  "IMPORT_CONTACTS": {
-    "BUTTON_LABEL": "تزریق کردن",
-    "TITLE": "تزریق مخاطبین",
-    "DESC": "مخاطبین را از طریق یک فایل CSV وارد کنید.",
-    "DOWNLOAD_LABEL": "نمونه csv را بارگیری کنید.",
-    "FORM": {
-      "LABEL": "پرونده CSV",
-      "SUBMIT": "تزریق کردن",
-      "CANCEL": "انصراف"
-    },
-    "SUCCESS_MESSAGE": "پس از تکمیل ورود اطلاعات از طریق ایمیل به شما اطلاع داده خواهد شد.",
-    "ERROR_MESSAGE": "خطایی پیش آمد. لطفا دوباره امتحان کنید"
-  },
-  "EXPORT_CONTACTS": {
-    "BUTTON_LABEL": "خروجی گرفتن",
-    "TITLE": "خروجی گرفتن مخاطب ها",
-    "DESC": "خروجی گرفتن مخاطب ها از طریق CSV",
-    "SUCCESS_MESSAGE": "Export is in progress, You will be notified via email when export file is ready to dowanlod.",
-    "ERROR_MESSAGE": "خطایی پیش آمد. لطفا دوباره امتحان کنید",
-    "CONFIRM": {
-      "TITLE": "خروجی گرفتن مخاطب ها",
-      "MESSAGE": "آیا مطمئن هستید که می خواهید از همه مخاطبین خروجی بگیرید؟",
-      "FILTERED_MESSAGE": "Are you sure you want to export all the filtered contacts?",
-      "YES": "بله، خروجی بگیر",
-      "NO": "نه، انصراف"
-    }
-  },
-  "DELETE_NOTE": {
-    "CONFIRM": {
-      "TITLE": "تاییدیه حذف",
-      "MESSAGE": "آیا مطمئن هستید که می خواهید این یادداشت را حذف کنید؟",
-      "YES": "بله، حذف شود ",
-      "NO": "خیر، بماند"
-    }
   },
   "DELETE_CONTACT": {
     "BUTTON_LABEL": "حذف مخاطب",
@@ -224,79 +189,14 @@
     }
   },
   "CONTACTS_PAGE": {
-    "HEADER": "مخاطبین",
-    "FIELDS": "برچسب های تماس",
-    "SEARCH_BUTTON": "جستجو",
-    "SEARCH_INPUT_PLACEHOLDER": "جستجوی مخاطبین",
-    "FILTER_CONTACTS": "فیلتر",
-    "FILTER_CONTACTS_SAVE": "ذخیره فیلتر",
-    "FILTER_CONTACTS_DELETE": "حذف فیلتر",
-    "FILTER_CONTACTS_EDIT": "ویرایش بخش",
     "LIST": {
-      "LOADING_MESSAGE": "در حال بارگذاری مخاطبین...",
-      "404": "هیچ مخاطبی با جستجوی شما مطابقت ندارد 🔍",
-      "NO_CONTACTS": "هیچ مخاطبی در دسترس نیست",
       "TABLE_HEADER": {
-        "NAME": "نام",
-        "PHONE_NUMBER": "شماره تلفن",
-        "CONVERSATIONS": "گفتگوها",
-        "LAST_ACTIVITY": "آخرین فعالیت",
-        "CREATED_AT": "ایجاد شده در",
-        "COUNTRY": "کشور",
-        "CITY": "شهر",
-        "SOCIAL_PROFILES": "پروفایل‌های شبکه‌های اجتماعی",
-        "COMPANY": "شرکت",
-        "EMAIL_ADDRESS": "ایمیل"
-      },
-      "VIEW_DETAILS": "مشاهده جزئیات"
-    }
-  },
-  "CONTACT_PROFILE": {
-    "BACK_BUTTON": "مخاطبین",
-    "LOADING": "بارگیری مشخصات مخاطب ..."
-  },
-  "REMINDER": {
-    "ADD_BUTTON": {
-      "BUTTON": "افزودن",
-      "TITLE": "برای ایجاد کار Shift + Enter را فشار دهید"
-    },
-    "FOOTER": {
-      "DUE_DATE": "تاریخ سررسید",
-      "LABEL_TITLE": "تنظیم نوع"
-    }
-  },
-  "NOTES": {
-    "FETCHING_NOTES": "درحال گرفتن یادداشت ها ... ",
-    "NOT_AVAILABLE": "هیچ یادداشت برای این تماس ایجاد نشده است",
-    "HEADER": {
-      "TITLE": "یادداشت‌ها"
-    },
-    "LIST": {
-      "LABEL": "یک یادداشت اضافه شد"
-    },
-    "ADD": {
-      "BUTTON": "افزودن",
-      "PLACEHOLDER": "افزودن یادداشت",
-      "TITLE": "برای ایجاد یادداشت Shift + Enter را فشار دهید"
-    },
-    "CONTENT_HEADER": {
-      "DELETE": "حذف یادداشت"
-    }
-  },
-  "EVENTS": {
-    "HEADER": {
-      "TITLE": "فعالیت‌ها"
-    },
-    "BUTTON": {
-      "PILL_BUTTON_NOTES": "یادداشت‌ها",
-      "PILL_BUTTON_EVENTS": "رویدادها",
-      "PILL_BUTTON_CONVO": "گفتگوها"
+        "SOCIAL_PROFILES": "پروفایل‌های شبکه‌های اجتماعی"
+      }
     }
   },
   "CUSTOM_ATTRIBUTES": {
-    "ADD_BUTTON_TEXT": "افزودن ویژگی‌ها",
     "BUTTON": "افزودن ویژگی سفارشی",
-    "NOT_AVAILABLE": "هیچ ویژگی سفارشی برای این مخاطب موجود نیست.",
     "COPY_SUCCESSFUL": "با موفقیت در کلیپ‌بورد کپی شد",
     "SHOW_MORE": "نمایش همه ویژگی ها",
     "SHOW_LESS": "نمایش ویژگی های کمتر",
@@ -371,7 +271,7 @@
       "ATTRIBUTE_WARNING": "اطلاعات مخاطب <strong>{primaryContactName}</strong> کپی شود به <strong>{parentContactName}</strong>."
     },
     "SEARCH": {
-      "ERROR": "ERROR_MESSAGE"
+      "ERROR_MESSAGE": "Something went wrong. Please try again later."
     },
     "FORM": {
       "SUBMIT": " ادغام مخاطبین",
@@ -384,6 +284,368 @@
     },
     "DROPDOWN_ITEM": {
       "ID": "(ID: {identifier})"
+    }
+  },
+  "CONTACTS_LAYOUT": {
+    "HEADER": {
+      "TITLE": "مخاطبین",
+      "SEARCH_TITLE": "جستجوی مخاطبین",
+      "ACTIVE_TITLE": "Active contacts",
+      "SEARCH_PLACEHOLDER": "جستجو...",
+      "MESSAGE_BUTTON": "پیام",
+      "SEND_MESSAGE": "ارسال پیام",
+      "BLOCK_CONTACT": "مسدود کردن مخاطب",
+      "UNBLOCK_CONTACT": "رفع انسداد مخاطب",
+      "BREADCRUMB": {
+        "CONTACTS": "مخاطبین"
+      },
+      "ACTIONS": {
+        "CONTACT_CREATION": {
+          "ADD_CONTACT": "Add contact",
+          "EXPORT_CONTACT": "Export contacts",
+          "IMPORT_CONTACT": "Import contacts",
+          "SAVE_CONTACT": "Save contact",
+          "EMAIL_ADDRESS_DUPLICATE": "این آدرس ایمیل برای مخاطب دیگری در حال استفاده است.",
+          "PHONE_NUMBER_DUPLICATE": "این شماره تلفن برای مخاطب دیگری در حال استفاده است.",
+          "SUCCESS_MESSAGE": "مخاطب با موفقیت ذخیره شد",
+          "ERROR_MESSAGE": "Unable to save contact. Please try again later."
+        },
+        "BLOCK_SUCCESS_MESSAGE": "This contact is blocked successfully",
+        "BLOCK_ERROR_MESSAGE": "Unable to block contact. Please try again later.",
+        "UNBLOCK_SUCCESS_MESSAGE": "مخاطب با موفقیت رفع نسداد شد",
+        "UNBLOCK_ERROR_MESSAGE": "Unable to unblock contact. Please try again later.",
+        "IMPORT_CONTACT": {
+          "TITLE": "Import contacts",
+          "DESCRIPTION": "مخاطبین را از طریق یک فایل CSV وارد کنید.",
+          "DOWNLOAD_LABEL": "نمونه csv را بارگیری کنید.",
+          "LABEL": "پرونده CSV:",
+          "CHOOSE_FILE": "Choose file",
+          "CHANGE": "تغییر",
+          "CANCEL": "انصراف",
+          "IMPORT": "تزریق کردن",
+          "SUCCESS_MESSAGE": "پس از تکمیل ورود اطلاعات از طریق ایمیل به شما اطلاع داده خواهد شد.",
+          "ERROR_MESSAGE": "خطایی پیش آمد. لطفا دوباره امتحان کنید"
+        },
+        "EXPORT_CONTACT": {
+          "TITLE": "Export contacts",
+          "DESCRIPTION": "Quickly export a csv file with comprehensive details of your contacts",
+          "CONFIRM": "خروجی گرفتن",
+          "SUCCESS_MESSAGE": "Export is in progress, You will be notified via email when export file is ready to dowanlod.",
+          "ERROR_MESSAGE": "خطایی پیش آمد. لطفا دوباره امتحان کنید"
+        },
+        "SORT_BY": {
+          "LABEL": "مرتب‌سازی براساس",
+          "OPTIONS": {
+            "NAME": "نام",
+            "EMAIL": "ایمیل",
+            "PHONE_NUMBER": "شماره تلفن",
+            "COMPANY": "شرکت",
+            "COUNTRY": "کشور",
+            "CITY": "شهر",
+            "LAST_ACTIVITY": "آخرین فعالیت",
+            "CREATED_AT": "ایجاد شده در"
+          }
+        },
+        "ORDER": {
+          "LABEL": "Ordering",
+          "OPTIONS": {
+            "ASCENDING": "Ascending",
+            "DESCENDING": "Descending"
+          }
+        },
+        "FILTERS": {
+          "CREATE_SEGMENT": {
+            "TITLE": "آیا می‌خواهید این فیلتر را ذخیره کنید ؟",
+            "CONFIRM": "ذخیره فیلتر",
+            "LABEL": "نام",
+            "PLACEHOLDER": "Enter the name of the filter",
+            "ERROR": "Enter a valid name",
+            "SUCCESS_MESSAGE": "Filter saved successfully",
+            "ERROR_MESSAGE": "Unable to save filter. Please try again later."
+          },
+          "DELETE_SEGMENT": {
+            "TITLE": "تاییدیه حذف",
+            "DESCRIPTION": "Are you sure you want to delete this filter?",
+            "CONFIRM": "بله، حذف شود",
+            "CANCEL": "نه، انصراف",
+            "SUCCESS_MESSAGE": "Filter deleted successfully",
+            "ERROR_MESSAGE": "Unable to delete filter. Please try again later."
+          }
+        }
+      }
+    },
+    "PAGINATION_FOOTER": {
+      "SHOWING": "Showing {startItem} - {endItem} of {totalItems} contacts"
+    },
+    "FILTER": {
+      "NAME": "نام",
+      "EMAIL": "ایمیل",
+      "PHONE_NUMBER": "شماره تلفن",
+      "IDENTIFIER": "شناسه",
+      "COUNTRY": "کشور",
+      "CITY": "شهر",
+      "CREATED_AT": "ایجاد شده در",
+      "LAST_ACTIVITY": "آخرین فعالیت",
+      "REFERER_LINK": "پیوند ارجاع‌دهنده",
+      "BLOCKED": "مسدود شده",
+      "BLOCKED_TRUE": "درست",
+      "BLOCKED_FALSE": "نادرست",
+      "BUTTONS": {
+        "CLEAR_FILTERS": "پاک کردن فیلترها",
+        "UPDATE_SEGMENT": "Update segment",
+        "APPLY_FILTERS": "اعمال فیلترها",
+        "ADD_FILTER": "افزودن فیلتر"
+      },
+      "TITLE": "فیلتر مخاطبین",
+      "EDIT_SEGMENT": "ویرایش بخش",
+      "SEGMENT": {
+        "LABEL": "Segment name",
+        "INPUT_PLACEHOLDER": "Enter the name of the segment"
+      },
+      "ACTIVE_FILTERS": {
+        "MORE_FILTERS": "+ {count} more filters",
+        "CLEAR_FILTERS": "پاک کردن فیلترها"
+      }
+    },
+    "CARD": {
+      "OF": "of",
+      "VIEW_DETAILS": "مشاهده جزئیات",
+      "EDIT_DETAILS_FORM": {
+        "TITLE": "ویرایش اطلاعات مخاطب",
+        "FORM": {
+          "FIRST_NAME": {
+            "PLACEHOLDER": "Enter the first name"
+          },
+          "LAST_NAME": {
+            "PLACEHOLDER": "Enter the last name"
+          },
+          "EMAIL_ADDRESS": {
+            "PLACEHOLDER": "Enter the email address",
+            "DUPLICATE": "این آدرس ایمیل برای مخاطب دیگری در حال استفاده است."
+          },
+          "PHONE_NUMBER": {
+            "PLACEHOLDER": "Enter the phone number",
+            "DUPLICATE": "این شماره تلفن برای مخاطب دیگری در حال استفاده است."
+          },
+          "CITY": {
+            "PLACEHOLDER": "نام شهر را وارد کنید"
+          },
+          "COUNTRY": {
+            "PLACEHOLDER": "Select country"
+          },
+          "BIO": {
+            "PLACEHOLDER": "Enter the bio"
+          },
+          "COMPANY_NAME": {
+            "PLACEHOLDER": "نام شرکت را وارد کنید"
+          }
+        },
+        "UPDATE_BUTTON": "Update contact",
+        "SUCCESS_MESSAGE": "Contact updated successfully",
+        "ERROR_MESSAGE": "Unable to update contact. Please try again later."
+      },
+      "SOCIAL_MEDIA": {
+        "TITLE": "Edit social links",
+        "FORM": {
+          "FACEBOOK": {
+            "PLACEHOLDER": "Add Facebook"
+          },
+          "GITHUB": {
+            "PLACEHOLDER": "Add Github"
+          },
+          "INSTAGRAM": {
+            "PLACEHOLDER": "Add Instagram"
+          },
+          "LINKEDIN": {
+            "PLACEHOLDER": "Add LinkedIn"
+          },
+          "TWITTER": {
+            "PLACEHOLDER": "Add Twitter"
+          }
+        }
+      },
+      "DELETE_CONTACT": {
+        "MESSAGE": "This action is permanent and irreversible.",
+        "BUTTON": "Delete now"
+      }
+    },
+    "DETAILS": {
+      "CREATED_AT": "Created {date}",
+      "LAST_ACTIVITY": "Last active {date}",
+      "DELETE_CONTACT_DESCRIPTION": "Permanently delete this contact. This action is irreversible",
+      "DELETE_CONTACT": "حذف مخاطب",
+      "DELETE_DIALOG": {
+        "TITLE": "تاییدیه حذف",
+        "DESCRIPTION": "Are you sure you want to delete this contact?",
+        "CONFIRM": "بله، حذف شود",
+        "API": {
+          "SUCCESS_MESSAGE": "مخاطب با موفقیت حذف شد",
+          "ERROR_MESSAGE": "مخاطب حذف نشد. لطفاً بعداً دوباره امتحان کنید."
+        }
+      },
+      "AVATAR": {
+        "UPLOAD": {
+          "ERROR_MESSAGE": "Could not upload avatar. Please try again later.",
+          "SUCCESS_MESSAGE": "Avatar uploaded successfully"
+        },
+        "DELETE": {
+          "SUCCESS_MESSAGE": "آواتار با موفقیت حذف شد",
+          "ERROR_MESSAGE": "Could not delete avatar. Please try again later."
+        }
+      }
+    },
+    "SIDEBAR": {
+      "TABS": {
+        "ATTRIBUTES": "ویژگی ها",
+        "HISTORY": "History",
+        "NOTES": "یادداشت‌ها",
+        "MERGE": "Merge"
+      },
+      "HISTORY": {
+        "EMPTY_STATE": "این اولین گفتگوی این کاربر است"
+      },
+      "ATTRIBUTES": {
+        "SEARCH_PLACEHOLDER": "Search for attributes",
+        "UNUSED_ATTRIBUTES": "{count} Used attribute | {count} Unused attributes",
+        "EMPTY_STATE": "There are no contact custom attributes available in this account. You can create a custom attribute in settings.",
+        "YES": "بله",
+        "NO": "خیر",
+        "TRIGGER": {
+          "SELECT": "مقدار را انتخاب کنید",
+          "INPUT": "Enter value"
+        },
+        "VALIDATIONS": {
+          "INVALID_NUMBER": "Invalid number",
+          "REQUIRED": "مقدار معتبر مورد نیاز است",
+          "INVALID_INPUT": "Invalid input",
+          "INVALID_URL": "URL نامعتبر",
+          "INVALID_DATE": "Invalid date"
+        },
+        "NO_ATTRIBUTES": "هیچ ویژگی یافت نشد",
+        "API": {
+          "SUCCESS_MESSAGE": "ویژگی با موفقیت به روز شد",
+          "DELETE_SUCCESS_MESSAGE": "ویژگی با موفقیت حذف شد",
+          "UPDATE_ERROR": "امکان به روزرسانی ویژگی وجود ندارد. لطفاً بعداً دوباره امتحان کنید",
+          "DELETE_ERROR": "امکان حذف ویژگی وجود ندارد. لطفاً بعداً دوباره امتحان کنید"
+        }
+      },
+      "MERGE": {
+        "TITLE": "ادغام مخاطبین",
+        "DESCRIPTION": "Combine two profiles into one, including all attributes and conversations. In case of conflict, the primary contact’s attributes will take precedence.",
+        "PRIMARY": "مخاطب اصلی",
+        "PRIMARY_HELP_LABEL": "To be saved",
+        "PRIMARY_REQUIRED_ERROR": "Please select a contact to merge with before proceeding",
+        "PARENT": "To be merged",
+        "PARENT_HELP_LABEL": "حذف شود",
+        "EMPTY_STATE": "No contacts found",
+        "PLACEHOLDER": "Search for primary contact",
+        "SEARCH_PLACEHOLDER": "جستجو برای یک مخاطب",
+        "SEARCH_ERROR_MESSAGE": "Could not search for contacts. Please try again later.",
+        "SUCCESS_MESSAGE": "مخاطب با موفقیت ادغام شد",
+        "ERROR_MESSAGE": "نمی توان مخاطبین را ادغام کرد، دوباره امتحان کنید!",
+        "IS_SEARCHING": "در حال جستجو...",
+        "BUTTONS": {
+          "CANCEL": "انصراف",
+          "CONFIRM": "ادغام مخاطبین"
+        }
+      },
+      "NOTES": {
+        "PLACEHOLDER": "افزودن یادداشت",
+        "WROTE": "نوشت",
+        "YOU": "شما",
+        "SAVE": "Save note",
+        "ADD_NOTE": "Add contact note",
+        "EXPAND": "Expand",
+        "COLLAPSE": "Collapse",
+        "NO_NOTES": "No notes, you can add notes from the contact details page.",
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "CONVERSATION_EMPTY_STATE": "There are no notes yet. Use the Add note button to create one."
+      }
+    },
+    "EMPTY_STATE": {
+      "TITLE": "No contacts found in this account",
+      "SUBTITLE": "Start adding new contacts by clicking on the button below",
+      "BUTTON_LABEL": "Add contact",
+      "SEARCH_EMPTY_STATE_TITLE": "هیچ مخاطبی با جستجوی شما مطابقت ندارد 🔍",
+      "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
+      "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "اختصاص برچسب‌ها",
+    "ASSIGN_LABELS_SUCCESS": "برچسب‌ها با موفقیت اختصاص یافتند.",
+    "ASSIGN_LABELS_FAILED": "Failed to assign labels",
+    "DESCRIPTION": "Select the labels you want to add to the selected contacts.",
+    "NO_LABELS_FOUND": "No labels available yet.",
+    "SELECTED_COUNT": "{count} selected",
+    "CLEAR_SELECTION": "Clear selection",
+    "SELECT_ALL": "Select all ({count})",
+    "DELETE_CONTACTS": "حذف",
+    "DELETE_SUCCESS": "Contacts deleted successfully.",
+    "DELETE_FAILED": "Failed to delete contacts.",
+    "DELETE_DIALOG": {
+      "TITLE": "Delete selected contacts",
+      "SINGULAR_TITLE": "Delete selected contact",
+      "DESCRIPTION": "This will permanently delete {count} selected contacts. This action cannot be undone.",
+      "SINGULAR_DESCRIPTION": "This will permanently delete the selected contact. This action cannot be undone.",
+      "CONFIRM_MULTIPLE": "Delete contacts",
+      "CONFIRM_SINGLE": "حذف مخاطب"
+    }
+  },
+  "COMPOSE_NEW_CONVERSATION": {
+    "CONTACT_SEARCH": {
+      "ERROR_MESSAGE": "We couldn’t complete the search. Please try again."
+    },
+    "FORM": {
+      "GO_TO_CONVERSATION": "نمایش",
+      "SUCCESS_MESSAGE": "The message was sent successfully!",
+      "ERROR_MESSAGE": "An error occurred while creating the conversation. Please try again later.",
+      "NO_INBOX_ALERT": "There are no available inboxes to start a conversation with this contact.",
+      "CONTACT_SELECTOR": {
+        "LABEL": "به:",
+        "TAG_INPUT_PLACEHOLDER": "Search for a contact with name, email or phone number",
+        "CONTACT_CREATING": "Creating contact..."
+      },
+      "INBOX_SELECTOR": {
+        "LABEL": "Via:",
+        "BUTTON": "Show inboxes"
+      },
+      "EMAIL_OPTIONS": {
+        "SUBJECT_LABEL": "موضوع :",
+        "SUBJECT_PLACEHOLDER": "Enter your email subject here",
+        "CC_LABEL": "Cc:",
+        "CC_PLACEHOLDER": "Search for a contact with their email address",
+        "BCC_LABEL": "Bcc:",
+        "BCC_PLACEHOLDER": "Search for a contact with their email address",
+        "BCC_BUTTON": "Bcc"
+      },
+      "MESSAGE_EDITOR": {
+        "PLACEHOLDER": "پیام خود را اینجا بنویسید..."
+      },
+      "WHATSAPP_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "TEMPLATE_NAME": "WhatsApp template: {templateName}",
+          "VARIABLES": "متغیرها",
+          "BACK": "بازگشت",
+          "SEND_MESSAGE": "ارسال پیام"
+        }
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "BACK": "بازگشت",
+          "SEND_MESSAGE": "ارسال پیام"
+        }
+      },
+      "ACTION_BUTTONS": {
+        "DISCARD": "Discard",
+        "SEND": "Send ({keyCode})"
+      }
     }
   }
 }

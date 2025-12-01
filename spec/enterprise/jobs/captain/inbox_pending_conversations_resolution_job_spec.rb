@@ -1,15 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
-  include ActiveJob::TestHelper
-
   let!(:inbox) { create(:inbox) }
+
   let!(:resolvable_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 2.hours.ago, status: :pending) }
   let!(:recent_pending_conversation) { create(:conversation, inbox: inbox, last_activity_at: 10.minutes.ago, status: :pending) }
   let!(:open_conversation) { create(:conversation, inbox: inbox, last_activity_at: 1.hour.ago, status: :open) }
 
+  let!(:captain_assistant) { create(:captain_assistant, account: inbox.account) }
+
   before do
+    create(:captain_inbox, inbox: inbox, captain_assistant: captain_assistant)
     stub_const('Limits::BULK_ACTIONS_LIMIT', 2)
+    inbox.reload
   end
 
   it 'queues the job' do
@@ -18,21 +21,47 @@ RSpec.describe Captain::InboxPendingConversationsResolutionJob, type: :job do
   end
 
   it 'resolves only the eligible pending conversations' do
-    perform_enqueued_jobs { described_class.perform_later(inbox) }
+    described_class.perform_now(inbox)
 
     expect(resolvable_pending_conversation.reload.status).to eq('resolved')
     expect(recent_pending_conversation.reload.status).to eq('pending')
     expect(open_conversation.reload.status).to eq('open')
   end
 
-  it 'creates an outgoing message for each resolved conversation' do
-    # resolution message + system message
-    expect { perform_enqueued_jobs { described_class.perform_later(inbox) } }
-      .to change { resolvable_pending_conversation.messages.reload.count }.by(2)
+  it 'creates exactly one outgoing message with configured content' do
+    custom_message = 'This is a custom resolution message.'
+    captain_assistant.update!(config: { 'resolution_message' => custom_message })
 
-    resolved_conversation_messages = resolvable_pending_conversation.messages.map(&:content)
-    expect(resolved_conversation_messages).to include(
-      'Resolving the conversation as it has been inactive for a while. Please start a new conversation if you need further assistance.'
+    expect do
+      described_class.perform_now(inbox)
+    end.to change { resolvable_pending_conversation.messages.outgoing.reload.count }.by(1)
+
+    outgoing_message = resolvable_pending_conversation.messages.outgoing.last
+    expect(outgoing_message.content).to eq(custom_message)
+  end
+
+  it 'creates an outgoing message with default auto resolution message if not configured' do
+    captain_assistant.update!(config: {})
+
+    described_class.perform_now(inbox)
+    outgoing_message = resolvable_pending_conversation.messages.outgoing.last
+    expect(outgoing_message.content).to eq(
+      I18n.t('conversations.activity.auto_resolution_message')
     )
+  end
+
+  it 'adds the correct activity message after resolution by Captain' do
+    described_class.perform_now(inbox)
+    expected_content = I18n.t('conversations.activity.captain.resolved', user_name: captain_assistant.name)
+    expect(Conversations::ActivityMessageJob)
+      .to have_been_enqueued.with(
+        resolvable_pending_conversation,
+        {
+          account_id: resolvable_pending_conversation.account_id,
+          inbox_id: resolvable_pending_conversation.inbox_id,
+          message_type: :activity,
+          content: expected_content
+        }
+      )
   end
 end

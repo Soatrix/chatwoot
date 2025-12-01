@@ -6,8 +6,11 @@ export const DEFAULT_CONVERSATION_SIDEBAR_ITEMS_ORDER = Object.freeze([
   { name: 'macros' },
   { name: 'conversation_info' },
   { name: 'contact_attributes' },
+  { name: 'contact_notes' },
   { name: 'previous_conversation' },
   { name: 'conversation_participants' },
+  { name: 'linear_issues' },
+  { name: 'shopify_orders' },
 ]);
 
 export const DEFAULT_CONTACT_SIDEBAR_ITEMS_ORDER = Object.freeze([
@@ -35,7 +38,7 @@ const useConversationSidebarItemsOrder = uiSettings => {
     const { conversation_sidebar_items_order: itemsOrder } = uiSettings.value;
     // If the sidebar order is not set, use the default order.
     if (!itemsOrder) {
-      return DEFAULT_CONVERSATION_SIDEBAR_ITEMS_ORDER;
+      return [...DEFAULT_CONVERSATION_SIDEBAR_ITEMS_ORDER];
     }
     // Create a copy of itemsOrder to avoid mutating the original store object.
     const itemsOrderCopy = [...itemsOrder];
@@ -84,6 +87,13 @@ const setSignatureFlagForInbox = (channelType, value, updateUISettings) => {
   updateUISettings({ [`${slugifiedChannel}_signature_enabled`]: value });
 };
 
+const setQuotedReplyFlagForInbox = (channelType, value, updateUISettings) => {
+  if (!channelType) return;
+
+  const slugifiedChannel = slugifyChannel(channelType);
+  updateUISettings({ [`${slugifiedChannel}_quoted_reply_enabled`]: value });
+};
+
 /**
  * Fetches the signature flag for a specific channel type from UI settings.
  * @param {string} channelType - The type of the channel.
@@ -95,6 +105,13 @@ const fetchSignatureFlagFromUISettings = (channelType, uiSettings) => {
 
   const slugifiedChannel = slugifyChannel(channelType);
   return uiSettings.value[`${slugifiedChannel}_signature_enabled`];
+};
+
+const fetchQuotedReplyFlagFromUISettings = (channelType, uiSettings) => {
+  if (!channelType) return false;
+
+  const slugifiedChannel = slugifyChannel(channelType);
+  return uiSettings.value[`${slugifiedChannel}_quoted_reply_enabled`];
 };
 
 /**
@@ -144,6 +161,10 @@ export function useUISettings() {
       setSignatureFlagForInbox(channelType, value, updateUISettings),
     fetchSignatureFlagFromUISettings: channelType =>
       fetchSignatureFlagFromUISettings(channelType, uiSettings),
+    setQuotedReplyFlagForInbox: (channelType, value) =>
+      setQuotedReplyFlagForInbox(channelType, value, updateUISettings),
+    fetchQuotedReplyFlagFromUISettings: channelType =>
+      fetchQuotedReplyFlagFromUISettings(channelType, uiSettings),
     isEditorHotKeyEnabled: key => isEditorHotKeyEnabled(key, uiSettings),
   };
 }

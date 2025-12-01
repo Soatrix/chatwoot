@@ -4,7 +4,7 @@ class Api::V1::Accounts::AgentBotsController < Api::V1::Accounts::BaseController
   before_action :agent_bot, except: [:index, :create]
 
   def index
-    @agent_bots = AgentBot.where(account_id: [nil, Current.account.id])
+    @agent_bots = AgentBot.accessible_to(Current.account)
   end
 
   def show; end
@@ -29,15 +29,20 @@ class Api::V1::Accounts::AgentBotsController < Api::V1::Accounts::BaseController
     head :ok
   end
 
+  def reset_access_token
+    @agent_bot.access_token.regenerate_token
+    @agent_bot.reload
+  end
+
   private
 
   def agent_bot
-    @agent_bot = AgentBot.where(account_id: [nil, Current.account.id]).find(params[:id]) if params[:action] == 'show'
+    @agent_bot = AgentBot.accessible_to(Current.account).find(params[:id]) if params[:action] == 'show'
     @agent_bot ||= Current.account.agent_bots.find(params[:id])
   end
 
   def permitted_params
-    params.permit(:name, :description, :outgoing_url, :avatar, :avatar_url, :bot_type, bot_config: [:csml_content])
+    params.permit(:name, :description, :outgoing_url, :avatar, :avatar_url, :bot_type, bot_config: {})
   end
 
   def process_avatar_from_url

@@ -4,55 +4,43 @@ import Input from 'dashboard/components-next/input/Input.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import ContactSortMenu from './components/ContactSortMenu.vue';
 import ContactMoreActions from './components/ContactMoreActions.vue';
+import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 
 defineProps({
-  showSearch: {
-    type: Boolean,
-    default: true,
-  },
-  searchValue: {
-    type: String,
-    default: '',
-  },
-  headerTitle: {
-    type: String,
-    required: true,
-  },
-  buttonLabel: {
-    type: String,
-    required: true,
-  },
-  activeSort: {
-    type: String,
-    default: 'last_activity_at',
-  },
-  activeOrdering: {
-    type: String,
-    default: '',
-  },
+  showSearch: { type: Boolean, default: true },
+  searchValue: { type: String, default: '' },
+  headerTitle: { type: String, required: true },
+  buttonLabel: { type: String, default: '' },
+  activeSort: { type: String, default: 'last_activity_at' },
+  activeOrdering: { type: String, default: '' },
+  isSegmentsView: { type: Boolean, default: false },
+  hasActiveFilters: { type: Boolean, default: false },
+  isLabelView: { type: Boolean, default: false },
+  isActiveView: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
   'search',
   'filter',
   'update:sort',
-  'message',
   'add',
   'import',
   'export',
+  'createSegment',
+  'deleteSegment',
 ]);
 </script>
 
 <template>
-  <header class="sticky top-0 z-10 px-6 xl:px-0">
+  <header class="sticky top-0 z-10">
     <div
-      class="flex items-center justify-between w-full h-20 gap-2 mx-auto max-w-[900px]"
+      class="flex items-start sm:items-center justify-between w-full py-6 px-6 gap-2 mx-auto max-w-[60rem]"
     >
       <span class="text-xl font-medium truncate text-n-slate-12">
         {{ headerTitle }}
       </span>
-      <div class="flex items-center flex-shrink-0 gap-4">
-        <div v-if="showSearch" class="flex items-center gap-2">
+      <div class="flex items-center flex-col sm:flex-row flex-shrink-0 gap-4">
+        <div v-if="showSearch" class="flex items-center gap-2 w-full">
           <Input
             :model-value="searchValue"
             type="search"
@@ -60,6 +48,7 @@ const emit = defineEmits([
             :custom-input-class="[
               'h-8 [&:not(.focus)]:!border-transparent bg-n-alpha-2 dark:bg-n-solid-1 ltr:!pl-8 !py-1 rtl:!pr-8',
             ]"
+            class="w-full"
             @input="emit('search', $event.target.value)"
           >
             <template #prefix>
@@ -70,27 +59,66 @@ const emit = defineEmits([
             </template>
           </Input>
         </div>
-        <div class="flex items-center gap-2">
-          <Button
-            icon="i-lucide-list-filter"
-            color="slate"
-            size="sm"
-            variant="ghost"
-            @click="emit('filter')"
-          />
-          <ContactSortMenu
-            :active-sort="activeSort"
-            :active-ordering="activeOrdering"
-            @update:sort="emit('update:sort', $event)"
-          />
-          <ContactMoreActions
-            @add="emit('add')"
-            @import="emit('import')"
-            @export="emit('export')"
-          />
+        <div class="flex items-center flex-shrink-0 gap-4">
+          <div class="flex items-center gap-2">
+            <div v-if="!isLabelView && !isActiveView" class="relative">
+              <Button
+                id="toggleContactsFilterButton"
+                :icon="
+                  isSegmentsView ? 'i-lucide-pen-line' : 'i-lucide-list-filter'
+                "
+                color="slate"
+                size="sm"
+                class="relative w-8"
+                variant="ghost"
+                @click="emit('filter')"
+              >
+                <div
+                  v-if="hasActiveFilters && !isSegmentsView"
+                  class="absolute top-0 right-0 w-2 h-2 rounded-full bg-n-brand"
+                />
+              </Button>
+              <slot name="filter" />
+            </div>
+            <Button
+              v-if="
+                hasActiveFilters &&
+                !isSegmentsView &&
+                !isLabelView &&
+                !isActiveView
+              "
+              icon="i-lucide-save"
+              color="slate"
+              size="sm"
+              variant="ghost"
+              @click="emit('createSegment')"
+            />
+            <Button
+              v-if="isSegmentsView && !isLabelView && !isActiveView"
+              icon="i-lucide-trash"
+              color="slate"
+              size="sm"
+              variant="ghost"
+              @click="emit('deleteSegment')"
+            />
+            <ContactSortMenu
+              :active-sort="activeSort"
+              :active-ordering="activeOrdering"
+              @update:sort="emit('update:sort', $event)"
+            />
+            <ContactMoreActions
+              @add="emit('add')"
+              @import="emit('import')"
+              @export="emit('export')"
+            />
+          </div>
+          <div class="w-px h-4 bg-n-strong" />
+          <ComposeConversation>
+            <template #trigger="{ toggle }">
+              <Button :label="buttonLabel" size="sm" @click="toggle" />
+            </template>
+          </ComposeConversation>
         </div>
-        <div class="w-px h-4 bg-n-strong" />
-        <Button :label="buttonLabel" size="sm" @click="emit('message')" />
       </div>
     </div>
   </header>

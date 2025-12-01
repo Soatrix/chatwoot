@@ -11,28 +11,62 @@ export function useSidebarContext() {
   }
 
   const router = useRouter();
-  const { checkFeatureAllowed, checkPermissions } = usePolicy();
+
+  const { shouldShow } = usePolicy();
 
   const resolvePath = to => {
     if (to) return router.resolve(to)?.path || '/';
     return '/';
   };
 
+  // Helper to find route definition by name without resolving
+  const findRouteByName = name => {
+    const routes = router.getRoutes();
+    return routes.find(route => route.name === name);
+  };
+
   const resolvePermissions = to => {
-    if (to) return router.resolve(to)?.meta?.permissions ?? [];
-    return [];
+    if (!to) return [];
+
+    // If navigationPath param exists, get the target route definition
+    if (to.params?.navigationPath) {
+      const targetRoute = findRouteByName(to.params.navigationPath);
+      return targetRoute?.meta?.permissions ?? [];
+    }
+
+    return router.resolve(to)?.meta?.permissions ?? [];
   };
 
   const resolveFeatureFlag = to => {
-    if (to) return router.resolve(to)?.meta?.featureFlag || '';
-    return '';
+    if (!to) return '';
+
+    // If navigationPath param exists, get the target route definition
+    if (to.params?.navigationPath) {
+      const targetRoute = findRouteByName(to.params.navigationPath);
+      return targetRoute?.meta?.featureFlag || '';
+    }
+
+    return router.resolve(to)?.meta?.featureFlag || '';
+  };
+
+  const resolveInstallationType = to => {
+    if (!to) return [];
+
+    // If navigationPath param exists, get the target route definition
+    if (to.params?.navigationPath) {
+      const targetRoute = findRouteByName(to.params.navigationPath);
+      return targetRoute?.meta?.installationTypes || [];
+    }
+
+    return router.resolve(to)?.meta?.installationTypes || [];
   };
 
   const isAllowed = to => {
     const permissions = resolvePermissions(to);
     const featureFlag = resolveFeatureFlag(to);
+    const installationType = resolveInstallationType(to);
 
-    return checkPermissions(permissions) && checkFeatureAllowed(featureFlag);
+    return shouldShow(featureFlag, permissions, installationType);
   };
 
   return {

@@ -17,6 +17,11 @@
     "IP_ADDRESS": "IP adresa",
     "CREATED_AT_LABEL": "Created",
     "NEW_MESSAGE": "Nová správa",
+    "CALL": "Call",
+    "CALL_UNDER_DEVELOPMENT": "Calling is under development",
+    "VOICE_INBOX_PICKER": {
+      "TITLE": "Choose a voice inbox"
+    },
     "CONVERSATIONS": {
       "NO_RECORDS_FOUND": "K tomuto kontaktu nie sú priradené žiadne predchádzajúce konverzácie.",
       "TITLE": "Prechádzajúce konverzácie"
@@ -56,46 +61,6 @@
     "BUTTON_LABEL": "Upraviť kontakt",
     "TITLE": "Upraviť kontakt",
     "DESC": "Upraviť kontaktné detaily"
-  },
-  "CREATE_CONTACT": {
-    "BUTTON_LABEL": "Nový kontakt",
-    "TITLE": "Vytvoriť nový kontakt",
-    "DESC": "Pridajte základné informácie o kontakte."
-  },
-  "IMPORT_CONTACTS": {
-    "BUTTON_LABEL": "Importovať",
-    "TITLE": "Importovať kontakty",
-    "DESC": "Importovať kontakty prostredníctvom súboru CSV.",
-    "DOWNLOAD_LABEL": "Stiahnite si ukážkový CSV súbor.",
-    "FORM": {
-      "LABEL": "CSV súbor",
-      "SUBMIT": "Importovať",
-      "CANCEL": "Zrušiť"
-    },
-    "SUCCESS_MESSAGE": "You will be notified via email when the import is complete.",
-    "ERROR_MESSAGE": "Vyskytla sa chyba, skúste to prosím znova"
-  },
-  "EXPORT_CONTACTS": {
-    "BUTTON_LABEL": "Export",
-    "TITLE": "Export Contacts",
-    "DESC": "Export contacts to a CSV file.",
-    "SUCCESS_MESSAGE": "Export is in progress, You will be notified via email when export file is ready to dowanlod.",
-    "ERROR_MESSAGE": "Vyskytla sa chyba, skúste to prosím znova",
-    "CONFIRM": {
-      "TITLE": "Export Contacts",
-      "MESSAGE": "Are you sure you want to export all contacts?",
-      "FILTERED_MESSAGE": "Are you sure you want to export all the filtered contacts?",
-      "YES": "Yes, Export",
-      "NO": "No, Cancel"
-    }
-  },
-  "DELETE_NOTE": {
-    "CONFIRM": {
-      "TITLE": "Potvrdiť vymazanie",
-      "MESSAGE": "Are you want sure to delete this note?",
-      "YES": "Yes, Delete it",
-      "NO": "No, Keep it"
-    }
   },
   "DELETE_CONTACT": {
     "BUTTON_LABEL": "Vymazať kontakt",
@@ -198,8 +163,8 @@
         "LABEL": "Pre"
       },
       "INBOX": {
-        "LABEL": "Via Inbox",
-        "PLACEHOLDER": "Choose source inbox",
+        "LABEL": "",
+        "PLACEHOLDER": "Vyberte zdrojovú schránku",
         "ERROR": "Vybrať schránku"
       },
       "SUBJECT": {
@@ -224,81 +189,16 @@
     }
   },
   "CONTACTS_PAGE": {
-    "HEADER": "Kontakty",
-    "FIELDS": "Kontaktné polia",
-    "SEARCH_BUTTON": "Hľadať",
-    "SEARCH_INPUT_PLACEHOLDER": "Hľadať kontakty",
-    "FILTER_CONTACTS": "Filter",
-    "FILTER_CONTACTS_SAVE": "Save filter",
-    "FILTER_CONTACTS_DELETE": "Delete filter",
-    "FILTER_CONTACTS_EDIT": "Edit segment",
     "LIST": {
-      "LOADING_MESSAGE": "Kontakty sa hľadajú...",
-      "404": "Žiadny kontakt nezodpovedá vášmu vyhľadávaniu 🔍",
-      "NO_CONTACTS": "Nie sú k dispozícii žiadne kontakty",
       "TABLE_HEADER": {
-        "NAME": "Meno",
-        "PHONE_NUMBER": "Telefónne číslo",
-        "CONVERSATIONS": "Konverzácia",
-        "LAST_ACTIVITY": "Posledná aktivita",
-        "CREATED_AT": "Created At",
-        "COUNTRY": "Krajina",
-        "CITY": "Mesto",
-        "SOCIAL_PROFILES": "Sociálne profily",
-        "COMPANY": "Spoločnosť",
-        "EMAIL_ADDRESS": "E-mailová adresa"
-      },
-      "VIEW_DETAILS": "Ukáž detaily"
-    }
-  },
-  "CONTACT_PROFILE": {
-    "BACK_BUTTON": "Kontakty",
-    "LOADING": "Kontaktný profil sa načítava..."
-  },
-  "REMINDER": {
-    "ADD_BUTTON": {
-      "BUTTON": "Pridať",
-      "TITLE": "Shift + Enter na vytvorenie úlohy"
-    },
-    "FOOTER": {
-      "DUE_DATE": "Deadline",
-      "LABEL_TITLE": "Nastav typ"
-    }
-  },
-  "NOTES": {
-    "FETCHING_NOTES": "Poznámky sa načítavajú...",
-    "NOT_AVAILABLE": "Pre tento kontakt nie sú vytvorené žiadne poznámky",
-    "HEADER": {
-      "TITLE": "Poznámky"
-    },
-    "LIST": {
-      "LABEL": "pridali poznámku"
-    },
-    "ADD": {
-      "BUTTON": "Pridať",
-      "PLACEHOLDER": "Pridať poznámku",
-      "TITLE": "Shift + Enter na vytvorenie poznámky"
-    },
-    "CONTENT_HEADER": {
-      "DELETE": "Vymazať poznámku"
-    }
-  },
-  "EVENTS": {
-    "HEADER": {
-      "TITLE": "Aktivity"
-    },
-    "BUTTON": {
-      "PILL_BUTTON_NOTES": "poznámky",
-      "PILL_BUTTON_EVENTS": "udalosti",
-      "PILL_BUTTON_CONVO": "konverzácie"
+        "SOCIAL_PROFILES": "Sociálne profily"
+      }
     }
   },
   "CUSTOM_ATTRIBUTES": {
-    "ADD_BUTTON_TEXT": "Pridať atribúty",
     "BUTTON": "Pridať vlastné atribúty",
-    "NOT_AVAILABLE": "Pre tento kontakt nie sú k dispozícii žiadne vlastné atribúty.",
     "COPY_SUCCESSFUL": "Úspešne nakopírované",
-    "SHOW_MORE": "Show all attributes",
+    "SHOW_MORE": "Zobraz všetky atribúty",
     "SHOW_LESS": "Show less attributes",
     "ACTIONS": {
       "COPY": "Kopírovať atribút",
@@ -371,7 +271,7 @@
       "ATTRIBUTE_WARNING": "Kontaktné údaje <strong>{primaryContactName}</strong> budú skopírované do <strong>{parentContactName}</strong>."
     },
     "SEARCH": {
-      "ERROR": "ERROR_MESSAGE"
+      "ERROR_MESSAGE": "Something went wrong. Please try again later."
     },
     "FORM": {
       "SUBMIT": " Zlúčiť kontakty",
@@ -384,6 +284,368 @@
     },
     "DROPDOWN_ITEM": {
       "ID": "(ID: {identifier})"
+    }
+  },
+  "CONTACTS_LAYOUT": {
+    "HEADER": {
+      "TITLE": "Kontakty",
+      "SEARCH_TITLE": "Search contacts",
+      "ACTIVE_TITLE": "Active contacts",
+      "SEARCH_PLACEHOLDER": "Search...",
+      "MESSAGE_BUTTON": "Správa",
+      "SEND_MESSAGE": "Poslať správu",
+      "BLOCK_CONTACT": "Block contact",
+      "UNBLOCK_CONTACT": "Unblock contact",
+      "BREADCRUMB": {
+        "CONTACTS": "Kontakty"
+      },
+      "ACTIONS": {
+        "CONTACT_CREATION": {
+          "ADD_CONTACT": "Add contact",
+          "EXPORT_CONTACT": "Export contacts",
+          "IMPORT_CONTACT": "Import contacts",
+          "SAVE_CONTACT": "Save contact",
+          "EMAIL_ADDRESS_DUPLICATE": "Táto e-mailová adresa sa používa pre iný kontakt.",
+          "PHONE_NUMBER_DUPLICATE": "Toto telefónne číslo sa používa pre iný kontakt.",
+          "SUCCESS_MESSAGE": "Kontakt bol úspešne uložený",
+          "ERROR_MESSAGE": "Unable to save contact. Please try again later."
+        },
+        "BLOCK_SUCCESS_MESSAGE": "This contact is blocked successfully",
+        "BLOCK_ERROR_MESSAGE": "Unable to block contact. Please try again later.",
+        "UNBLOCK_SUCCESS_MESSAGE": "This contact is unblocked successfully",
+        "UNBLOCK_ERROR_MESSAGE": "Unable to unblock contact. Please try again later.",
+        "IMPORT_CONTACT": {
+          "TITLE": "Import contacts",
+          "DESCRIPTION": "Importovať kontakty prostredníctvom súboru CSV.",
+          "DOWNLOAD_LABEL": "Stiahnite si ukážkový CSV súbor.",
+          "LABEL": "CSV súbor:",
+          "CHOOSE_FILE": "Choose file",
+          "CHANGE": "Zmeniť",
+          "CANCEL": "Zrušiť",
+          "IMPORT": "Importovať",
+          "SUCCESS_MESSAGE": "You will be notified via email when the import is complete.",
+          "ERROR_MESSAGE": "Vyskytla sa chyba, skúste to prosím znova"
+        },
+        "EXPORT_CONTACT": {
+          "TITLE": "Export contacts",
+          "DESCRIPTION": "Quickly export a csv file with comprehensive details of your contacts",
+          "CONFIRM": "Export",
+          "SUCCESS_MESSAGE": "Export is in progress, You will be notified via email when export file is ready to dowanlod.",
+          "ERROR_MESSAGE": "Vyskytla sa chyba, skúste to prosím znova"
+        },
+        "SORT_BY": {
+          "LABEL": "Sort by",
+          "OPTIONS": {
+            "NAME": "Meno",
+            "EMAIL": "E-mail",
+            "PHONE_NUMBER": "Telefónne číslo",
+            "COMPANY": "Spoločnosť",
+            "COUNTRY": "Krajina",
+            "CITY": "Mesto",
+            "LAST_ACTIVITY": "Last activity",
+            "CREATED_AT": "Created at"
+          }
+        },
+        "ORDER": {
+          "LABEL": "Ordering",
+          "OPTIONS": {
+            "ASCENDING": "Ascending",
+            "DESCENDING": "Descending"
+          }
+        },
+        "FILTERS": {
+          "CREATE_SEGMENT": {
+            "TITLE": "Do you want to save this filter?",
+            "CONFIRM": "Save filter",
+            "LABEL": "Meno",
+            "PLACEHOLDER": "Enter the name of the filter",
+            "ERROR": "Enter a valid name",
+            "SUCCESS_MESSAGE": "Filter saved successfully",
+            "ERROR_MESSAGE": "Unable to save filter. Please try again later."
+          },
+          "DELETE_SEGMENT": {
+            "TITLE": "Potvrdiť vymazanie",
+            "DESCRIPTION": "Are you sure you want to delete this filter?",
+            "CONFIRM": "Áno, vymazať",
+            "CANCEL": "No, Cancel",
+            "SUCCESS_MESSAGE": "Filter deleted successfully",
+            "ERROR_MESSAGE": "Unable to delete filter. Please try again later."
+          }
+        }
+      }
+    },
+    "PAGINATION_FOOTER": {
+      "SHOWING": "Showing {startItem} - {endItem} of {totalItems} contacts"
+    },
+    "FILTER": {
+      "NAME": "Meno",
+      "EMAIL": "E-mail",
+      "PHONE_NUMBER": "Telefónne číslo",
+      "IDENTIFIER": "Identifier",
+      "COUNTRY": "Krajina",
+      "CITY": "Mesto",
+      "CREATED_AT": "Created at",
+      "LAST_ACTIVITY": "Last activity",
+      "REFERER_LINK": "Referer link",
+      "BLOCKED": "Blocked",
+      "BLOCKED_TRUE": "True",
+      "BLOCKED_FALSE": "False",
+      "BUTTONS": {
+        "CLEAR_FILTERS": "Clear filters",
+        "UPDATE_SEGMENT": "Update segment",
+        "APPLY_FILTERS": "Apply filters",
+        "ADD_FILTER": "Add filter"
+      },
+      "TITLE": "Filter contacts",
+      "EDIT_SEGMENT": "Edit segment",
+      "SEGMENT": {
+        "LABEL": "Segment name",
+        "INPUT_PLACEHOLDER": "Enter the name of the segment"
+      },
+      "ACTIVE_FILTERS": {
+        "MORE_FILTERS": "+ {count} more filters",
+        "CLEAR_FILTERS": "Clear filters"
+      }
+    },
+    "CARD": {
+      "OF": "of",
+      "VIEW_DETAILS": "Ukáž detaily",
+      "EDIT_DETAILS_FORM": {
+        "TITLE": "Upraviť kontaktné detaily",
+        "FORM": {
+          "FIRST_NAME": {
+            "PLACEHOLDER": "Enter the first name"
+          },
+          "LAST_NAME": {
+            "PLACEHOLDER": "Enter the last name"
+          },
+          "EMAIL_ADDRESS": {
+            "PLACEHOLDER": "Enter the email address",
+            "DUPLICATE": "Táto e-mailová adresa sa používa pre iný kontakt."
+          },
+          "PHONE_NUMBER": {
+            "PLACEHOLDER": "Enter the phone number",
+            "DUPLICATE": "Toto telefónne číslo sa používa pre iný kontakt."
+          },
+          "CITY": {
+            "PLACEHOLDER": "Enter the city name"
+          },
+          "COUNTRY": {
+            "PLACEHOLDER": "Select country"
+          },
+          "BIO": {
+            "PLACEHOLDER": "Enter the bio"
+          },
+          "COMPANY_NAME": {
+            "PLACEHOLDER": "Zadajte názov spoločnosti"
+          }
+        },
+        "UPDATE_BUTTON": "Update contact",
+        "SUCCESS_MESSAGE": "Contact updated successfully",
+        "ERROR_MESSAGE": "Unable to update contact. Please try again later."
+      },
+      "SOCIAL_MEDIA": {
+        "TITLE": "Edit social links",
+        "FORM": {
+          "FACEBOOK": {
+            "PLACEHOLDER": "Add Facebook"
+          },
+          "GITHUB": {
+            "PLACEHOLDER": "Add Github"
+          },
+          "INSTAGRAM": {
+            "PLACEHOLDER": "Add Instagram"
+          },
+          "LINKEDIN": {
+            "PLACEHOLDER": "Add LinkedIn"
+          },
+          "TWITTER": {
+            "PLACEHOLDER": "Add Twitter"
+          }
+        }
+      },
+      "DELETE_CONTACT": {
+        "MESSAGE": "This action is permanent and irreversible.",
+        "BUTTON": "Delete now"
+      }
+    },
+    "DETAILS": {
+      "CREATED_AT": "Created {date}",
+      "LAST_ACTIVITY": "Last active {date}",
+      "DELETE_CONTACT_DESCRIPTION": "Permanently delete this contact. This action is irreversible",
+      "DELETE_CONTACT": "Vymazať kontakt",
+      "DELETE_DIALOG": {
+        "TITLE": "Potvrdiť vymazanie",
+        "DESCRIPTION": "Are you sure you want to delete this contact?",
+        "CONFIRM": "Áno, vymazať",
+        "API": {
+          "SUCCESS_MESSAGE": "Kontakt úspešne odstránený",
+          "ERROR_MESSAGE": "Nepodarilo sa vymazať kontakt. Skúste to prosím neskôr."
+        }
+      },
+      "AVATAR": {
+        "UPLOAD": {
+          "ERROR_MESSAGE": "Could not upload avatar. Please try again later.",
+          "SUCCESS_MESSAGE": "Avatar uploaded successfully"
+        },
+        "DELETE": {
+          "SUCCESS_MESSAGE": "Avatar deleted successfully",
+          "ERROR_MESSAGE": "Could not delete avatar. Please try again later."
+        }
+      }
+    },
+    "SIDEBAR": {
+      "TABS": {
+        "ATTRIBUTES": "Attributes",
+        "HISTORY": "History",
+        "NOTES": "Poznámky",
+        "MERGE": "Merge"
+      },
+      "HISTORY": {
+        "EMPTY_STATE": "K tomuto kontaktu nie sú priradené žiadne predchádzajúce konverzácie"
+      },
+      "ATTRIBUTES": {
+        "SEARCH_PLACEHOLDER": "Search for attributes",
+        "UNUSED_ATTRIBUTES": "{count} Used attribute | {count} Unused attributes",
+        "EMPTY_STATE": "There are no contact custom attributes available in this account. You can create a custom attribute in settings.",
+        "YES": "Áno",
+        "NO": "Nie",
+        "TRIGGER": {
+          "SELECT": "Vybrať hodnotu",
+          "INPUT": "Enter value"
+        },
+        "VALIDATIONS": {
+          "INVALID_NUMBER": "Invalid number",
+          "REQUIRED": "Vyžaduje sa platná hodnota",
+          "INVALID_INPUT": "Invalid input",
+          "INVALID_URL": "Neplatná URL",
+          "INVALID_DATE": "Invalid date"
+        },
+        "NO_ATTRIBUTES": "Žiadne atribúty neboli nájdené",
+        "API": {
+          "SUCCESS_MESSAGE": "Atribút úspešne nahraný",
+          "DELETE_SUCCESS_MESSAGE": "Aitribút úspešne vymazaný",
+          "UPDATE_ERROR": "Nie je možné aktualizovať atribút. Skúste to prosím neskôr",
+          "DELETE_ERROR": "Nie je možné odstrániť atribút. Skúste to prosím neskôr"
+        }
+      },
+      "MERGE": {
+        "TITLE": "Zlúčiť kontakt",
+        "DESCRIPTION": "Combine two profiles into one, including all attributes and conversations. In case of conflict, the primary contact’s attributes will take precedence.",
+        "PRIMARY": "Primárny kontakt",
+        "PRIMARY_HELP_LABEL": "To be saved",
+        "PRIMARY_REQUIRED_ERROR": "Please select a contact to merge with before proceeding",
+        "PARENT": "To be merged",
+        "PARENT_HELP_LABEL": "Na vymazanie",
+        "EMPTY_STATE": "No contacts found",
+        "PLACEHOLDER": "Search for primary contact",
+        "SEARCH_PLACEHOLDER": "Hľadať kontakt",
+        "SEARCH_ERROR_MESSAGE": "Could not search for contacts. Please try again later.",
+        "SUCCESS_MESSAGE": "Kontakt úspešne zlúčený",
+        "ERROR_MESSAGE": "Nepodarilo sa zlúčiť kontakty, skúste to znova!",
+        "IS_SEARCHING": "Searching...",
+        "BUTTONS": {
+          "CANCEL": "Zrušiť",
+          "CONFIRM": "Zlúčiť kontakt"
+        }
+      },
+      "NOTES": {
+        "PLACEHOLDER": "Pridať poznámku",
+        "WROTE": "wrote",
+        "YOU": "Vy",
+        "SAVE": "Save note",
+        "ADD_NOTE": "Add contact note",
+        "EXPAND": "Expand",
+        "COLLAPSE": "Collapse",
+        "NO_NOTES": "No notes, you can add notes from the contact details page.",
+        "EMPTY_STATE": "There are no notes associated to this contact. You can add a note by typing in the box above.",
+        "CONVERSATION_EMPTY_STATE": "There are no notes yet. Use the Add note button to create one."
+      }
+    },
+    "EMPTY_STATE": {
+      "TITLE": "No contacts found in this account",
+      "SUBTITLE": "Start adding new contacts by clicking on the button below",
+      "BUTTON_LABEL": "Add contact",
+      "SEARCH_EMPTY_STATE_TITLE": "Žiadny kontakt nezodpovedá vášmu vyhľadávaniu 🔍",
+      "LIST_EMPTY_STATE_TITLE": "No contacts available in this view 📋",
+      "ACTIVE_EMPTY_STATE_TITLE": "No contacts are active at the moment 🌙"
+    }
+  },
+  "CONTACTS_BULK_ACTIONS": {
+    "ASSIGN_LABELS": "Assign Labels",
+    "ASSIGN_LABELS_SUCCESS": "Labels assigned successfully.",
+    "ASSIGN_LABELS_FAILED": "Failed to assign labels",
+    "DESCRIPTION": "Select the labels you want to add to the selected contacts.",
+    "NO_LABELS_FOUND": "No labels available yet.",
+    "SELECTED_COUNT": "{count} selected",
+    "CLEAR_SELECTION": "Clear selection",
+    "SELECT_ALL": "Select all ({count})",
+    "DELETE_CONTACTS": "Vymazať",
+    "DELETE_SUCCESS": "Contacts deleted successfully.",
+    "DELETE_FAILED": "Failed to delete contacts.",
+    "DELETE_DIALOG": {
+      "TITLE": "Delete selected contacts",
+      "SINGULAR_TITLE": "Delete selected contact",
+      "DESCRIPTION": "This will permanently delete {count} selected contacts. This action cannot be undone.",
+      "SINGULAR_DESCRIPTION": "This will permanently delete the selected contact. This action cannot be undone.",
+      "CONFIRM_MULTIPLE": "Delete contacts",
+      "CONFIRM_SINGLE": "Vymazať kontakt"
+    }
+  },
+  "COMPOSE_NEW_CONVERSATION": {
+    "CONTACT_SEARCH": {
+      "ERROR_MESSAGE": "We couldn’t complete the search. Please try again."
+    },
+    "FORM": {
+      "GO_TO_CONVERSATION": "Zobraziť",
+      "SUCCESS_MESSAGE": "The message was sent successfully!",
+      "ERROR_MESSAGE": "An error occurred while creating the conversation. Please try again later.",
+      "NO_INBOX_ALERT": "There are no available inboxes to start a conversation with this contact.",
+      "CONTACT_SELECTOR": {
+        "LABEL": "Pre:",
+        "TAG_INPUT_PLACEHOLDER": "Search for a contact with name, email or phone number",
+        "CONTACT_CREATING": "Creating contact..."
+      },
+      "INBOX_SELECTOR": {
+        "LABEL": "Via:",
+        "BUTTON": "Show inboxes"
+      },
+      "EMAIL_OPTIONS": {
+        "SUBJECT_LABEL": "Predmet :",
+        "SUBJECT_PLACEHOLDER": "Enter your email subject here",
+        "CC_LABEL": "Kópia:",
+        "CC_PLACEHOLDER": "Search for a contact with their email address",
+        "BCC_LABEL": "Skrytá kópia:",
+        "BCC_PLACEHOLDER": "Search for a contact with their email address",
+        "BCC_BUTTON": "Skrytá kópia"
+      },
+      "MESSAGE_EDITOR": {
+        "PLACEHOLDER": "Napíšte svoju správu sem..."
+      },
+      "WHATSAPP_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "TEMPLATE_NAME": "WhatsApp template: {templateName}",
+          "VARIABLES": "Variables",
+          "BACK": "Go back",
+          "SEND_MESSAGE": "Poslať správu"
+        }
+      },
+      "TWILIO_OPTIONS": {
+        "LABEL": "Select template",
+        "SEARCH_PLACEHOLDER": "Search templates",
+        "EMPTY_STATE": "No templates found",
+        "TEMPLATE_PARSER": {
+          "BACK": "Go back",
+          "SEND_MESSAGE": "Poslať správu"
+        }
+      },
+      "ACTION_BUTTONS": {
+        "DISCARD": "Discard",
+        "SEND": "Send ({keyCode})"
+      }
     }
   }
 }

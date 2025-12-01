@@ -1,7 +1,7 @@
 {
   "PAGINATION_FOOTER": {
-    "SHOWING": "Showing {startItem} - {endItem} of {totalItems} items",
-    "CURRENT_PAGE_INFO": "{currentPage} of {totalPages} pages"
+    "SHOWING": "Showing {startItem} - {endItem} of {totalItems} item | Showing {startItem} - {endItem} of {totalItems} items",
+    "CURRENT_PAGE_INFO": "{currentPage} of {totalPages} page | {currentPage} of {totalPages} pages"
   },
   "COMBOBOX": {
     "PLACEHOLDER": "Select an option...",
@@ -12,7 +12,8 @@
   },
   "DROPDOWN_MENU": {
     "SEARCH_PLACEHOLDER": "Search...",
-    "EMPTY_STATE": "No results found."
+    "EMPTY_STATE": "No results found.",
+    "SEARCHING": "Searching..."
   },
   "DIALOG": {
     "BUTTONS": {
@@ -38,5 +39,18 @@
   },
   "LABEL": {
     "TAG_BUTTON": "tag"
+  },
+  "FEATURE_SPOTLIGHT": {
+    "LEARN_MORE": "Learn more",
+    "WATCH_VIDEO": "Watch video"
+  },
+  "DURATION_INPUT": {
+    "MINUTES": "Minutes",
+    "HOURS": "Hours",
+    "DAYS": "Days",
+    "PLACEHOLDER": "Enter duration"
+  },
+  "CHANNEL_SELECTOR": {
+    "COMING_SOON": "Coming Soon!"
   }
 }

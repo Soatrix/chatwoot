@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-ruby '3.3.3'
+ruby '3.4.4'
 
 ##-- base gems for rails --##
 gem 'rack-cors', '2.0.0', require: 'rack/cors'
-gem 'rails', '~> 7.0.8.4'
+gem 'rails', '~> 7.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
@@ -21,6 +21,7 @@ gem 'telephone_number'
 gem 'time_diff'
 gem 'tzinfo-data'
 gem 'valid_email2'
+gem 'email-provider-info'
 # compress javascript config.assets.js_compressor
 gem 'uglifier'
 ##-- used for single column multiple binary flags in notification settings/feature flagging --##
@@ -33,6 +34,8 @@ gem 'liquid'
 gem 'commonmarker'
 # Validate Data against JSON Schema
 gem 'json_schemer'
+# used in swagger build
+gem 'json_refs'
 # Rack middleware for blocking & throttling abusive requests
 gem 'rack-attack', '>= 6.7.0'
 # a utility tool for streaming, flexible and safe downloading of remote files
@@ -49,8 +52,11 @@ gem 'aws-sdk-s3', require: false
 # original gem isn't maintained actively
 # we wanted updated version of faraday which is a dependency for slack-ruby-client
 gem 'azure-storage-blob', git: 'https://github.com/chatwoot/azure-storage-ruby', branch: 'chatwoot', require: false
-gem 'google-cloud-storage', require: false
+gem 'google-cloud-storage', '>= 1.48.0', require: false
 gem 'image_processing'
+
+##-- for actionmailbox --##
+gem 'aws-actionmailbox-ses', '~> 0'
 
 ##-- gems for database --#
 gem 'groupdate'
@@ -59,6 +65,10 @@ gem 'redis'
 gem 'redis-namespace'
 # super fast record imports in bulk
 gem 'activerecord-import'
+
+gem 'searchkick'
+gem 'opensearch-ruby'
+gem 'faraday_middleware-aws-sigv4'
 
 ##--- gems for server & infra configuration ---##
 gem 'dotenv-rails', '>= 3.0.0'
@@ -72,9 +82,12 @@ gem 'barnes'
 gem 'devise', '>= 4.9.4'
 gem 'devise-secure_password', git: 'https://github.com/chatwoot/devise-secure_password', branch: 'chatwoot'
 gem 'devise_token_auth', '>= 1.2.3'
+# two-factor authentication
+gem 'devise-two-factor', '>= 5.0.0'
 # authorization
 gem 'jwt'
 gem 'pundit'
+
 # super admin
 gem 'administrate', '>= 0.20.1'
 gem 'administrate-field-active_storage', '>= 1.0.3'
@@ -87,14 +100,14 @@ gem 'wisper', '2.0.0'
 ##--- gems for channels ---##
 gem 'facebook-messenger'
 gem 'line-bot-api'
-gem 'twilio-ruby', '~> 5.66'
+gem 'twilio-ruby'
 # twitty will handle subscription of twitter account events
 # gem 'twitty', git: 'https://github.com/chatwoot/twitty'
 gem 'twitty', '~> 0.1.5'
 # facebook client
 gem 'koala'
 # slack client
-gem 'slack-ruby-client', '~> 2.2.0'
+gem 'slack-ruby-client', '~> 2.7.0'
 # for dialogflow integrations
 gem 'google-cloud-dialogflow-v2', '>= 0.24.0'
 gem 'grpc'
@@ -106,7 +119,7 @@ gem 'google-cloud-translate-v3', '>= 0.7.0'
 ##-- apm and error monitoring ---#
 # loaded only when environment variables are set.
 # ref application.rb
-gem 'ddtrace', require: false
+gem 'datadog', '~> 2.0', require: false
 gem 'elastic-apm', require: false
 gem 'newrelic_rpm', require: false
 gem 'newrelic-sidekiq-metrics', '>= 1.6.2', require: false
@@ -119,6 +132,8 @@ gem 'sentry-sidekiq', '>= 5.19.0', require: false
 gem 'sidekiq', '>= 7.3.1'
 # We want cron jobs
 gem 'sidekiq-cron', '>= 1.12.0'
+# for sidekiq healthcheck
+gem 'sidekiq_alive'
 
 ##-- Push notification service --##
 gem 'fcm'
@@ -138,9 +153,7 @@ gem 'procore-sift'
 # parse email
 gem 'email_reply_trimmer'
 
-# TODO: we might have to fork this gem since 0.3.1 has hard depency on nokogir 1.10.
-# and this gem hasn't been updated for a while.
-gem 'html2text', git: 'https://github.com/chatwoot/html2text_ruby', branch: 'chatwoot'
+gem 'html2text'
 
 # to calculate working hours
 gem 'working_hours'
@@ -165,6 +178,7 @@ gem 'audited', '~> 5.4', '>= 5.4.1'
 
 # need for google auth
 gem 'omniauth', '>= 2.1.2'
+gem 'omniauth-saml'
 gem 'omniauth-google-oauth2', '>= 1.1.3'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
@@ -174,6 +188,19 @@ gem 'neighbor'
 gem 'pgvector'
 # Convert Website HTML to Markdown
 gem 'reverse_markdown'
+
+gem 'iso-639'
+gem 'ruby-openai'
+gem 'ai-agents', '>= 0.4.3'
+
+# TODO: Move this gem as a dependency of ai-agents
+gem 'ruby_llm-schema'
+
+# OpenTelemetry for LLM observability
+gem 'opentelemetry-sdk'
+gem 'opentelemetry-exporter-otlp'
+
+gem 'shopify_api'
 
 ### Gems required only in specific deployment environments ###
 ##############################################################
@@ -193,9 +220,6 @@ group :development do
   gem 'scss_lint', require: false
   gem 'web-console', '>= 4.2.1'
 
-  # used in swagger build
-  gem 'json_refs'
-
   # When we want to squash migrations
   gem 'squasher'
 
@@ -204,6 +228,8 @@ group :development do
   gem 'stackprof'
   # Should install the associated chrome extension to view query logs
   gem 'meta_request', '>= 0.8.3'
+
+  gem 'tidewave'
 end
 
 group :test do
@@ -213,6 +239,7 @@ group :test do
   gem 'webmock'
   # test profiling
   gem 'test-prof'
+  gem 'simplecov_json_formatter', require: false
 end
 
 group :development, :test do
@@ -234,9 +261,10 @@ group :development, :test do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'seed_dump'
   gem 'shoulda-matchers'
-  gem 'simplecov', '0.17.1', require: false
+  gem 'simplecov', '>= 0.21', require: false
   gem 'spring'
   gem 'spring-watcher-listen'
 end

@@ -1,9 +1,9 @@
 {
   "BULK_ACTION": {
-    "CONVERSATIONS_SELECTED": "beszélgetés kiválasztva",
+    "CONVERSATIONS_SELECTED": "{conversationCount} conversations selected",
     "AGENT_SELECT_LABEL": "Ügynök kiválasztása",
-    "ASSIGN_CONFIRMATION_LABEL": "Biztosan hozzá szeretnéd rendelni?",
-    "UNASSIGN_CONFIRMATION_LABEL": "Biztosan meg szeretnéd szüntetni a hozzárendelést?",
+    "ASSIGN_CONFIRMATION_LABEL": "Are you sure to assign {conversationCount} {conversationLabel} to",
+    "UNASSIGN_CONFIRMATION_LABEL": "Are you sure to unassign {conversationCount} {conversationLabel}?",
     "GO_BACK_LABEL": "Visszaugrás",
     "ASSIGN_LABEL": "Hozzárendelés",
     "YES": "Igen",
@@ -24,7 +24,7 @@
     },
     "LABELS": {
       "ASSIGN_LABELS": "Címkék hozzárendelése",
-      "NO_LABELS_FOUND": "Nem található cimke erre:",
+      "NO_LABELS_FOUND": "Nem találtunk címkét",
       "ASSIGN_SELECTED_LABELS": "Válogatott címkék hozzárendelése",
       "ASSIGN_SUCCESFUL": "Címkék hozzárendelése sikeres.",
       "ASSIGN_FAILED": "Nem sikerült címkéket hozzárendelni. Kérjük, próbálja újra."

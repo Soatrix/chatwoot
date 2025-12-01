@@ -21,13 +21,21 @@ class AgentBot < ApplicationRecord
   include AccessTokenable
   include Avatarable
 
+  scope :accessible_to, lambda { |account|
+    account_id = account&.id
+    where(account_id: [nil, account_id])
+  }
+
   has_many :agent_bot_inboxes, dependent: :destroy_async
   has_many :inboxes, through: :agent_bot_inboxes
   has_many :messages, as: :sender, dependent: :nullify
+  has_many :assigned_conversations, class_name: 'Conversation',
+                                    foreign_key: :assignee_agent_bot_id,
+                                    dependent: :nullify,
+                                    inverse_of: :assignee_agent_bot
   belongs_to :account, optional: true
-  enum bot_type: { webhook: 0, csml: 1 }
+  enum bot_type: { webhook: 0 }
 
-  validate :validate_agent_bot_config
   validates :outgoing_url, length: { maximum: Limits::URL_LENGTH_LIMIT }
 
   def available_name
@@ -51,9 +59,7 @@ class AgentBot < ApplicationRecord
     }
   end
 
-  private
-
-  def validate_agent_bot_config
-    errors.add(:bot_config, 'Invalid Bot Configuration') unless AgentBots::ValidateBotService.new(agent_bot: self).perform
+  def system_bot?
+    account.nil?
   end
 end

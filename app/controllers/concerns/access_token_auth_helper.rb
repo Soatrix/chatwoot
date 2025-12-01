@@ -1,6 +1,6 @@
 module AccessTokenAuthHelper
   BOT_ACCESSIBLE_ENDPOINTS = {
-    'api/v1/accounts/conversations' => %w[toggle_status toggle_priority create update],
+    'api/v1/accounts/conversations' => %w[toggle_status toggle_priority create update custom_attributes],
     'api/v1/accounts/conversations/messages' => ['create'],
     'api/v1/accounts/conversations/assignments' => ['create']
   }.freeze
@@ -14,6 +14,7 @@ module AccessTokenAuthHelper
     ensure_access_token
     render_unauthorized('Invalid Access Token') && return if @access_token.blank?
 
+    # NOTE: This ensures that current_user is set and available for the rest of the controller actions
     @resource = @access_token.owner
     Current.user = @resource if allowed_current_user_type?(@resource)
   end

@@ -24,7 +24,7 @@
     },
     "LABELS": {
       "ASSIGN_LABELS": "Назначить метки",
-      "NO_LABELS_FOUND": "Нет меток для",
+      "NO_LABELS_FOUND": "Метки не найдены",
       "ASSIGN_SELECTED_LABELS": "Назначить выбранные метки",
       "ASSIGN_SUCCESFUL": "Метки успешно назначены.",
       "ASSIGN_FAILED": "Не удалось назначить метки, пожалуйста, попробуйте снова."
@@ -34,7 +34,7 @@
       "NONE": "Ничего",
       "NO_TEAMS_AVAILABLE": "Нет команд, добавленных в этот аккаунт.",
       "ASSIGN_SELECTED_TEAMS": "Назначить выбранную команду.",
-      "ASSIGN_SUCCESFUL": "Teams assigned successfully.",
+      "ASSIGN_SUCCESFUL": "Команды, назначены успешно.",
       "ASSIGN_FAILED": "Не удалось назначить команду, попробуйте еще раз."
     }
   }

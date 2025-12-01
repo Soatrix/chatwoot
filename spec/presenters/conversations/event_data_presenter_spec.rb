@@ -12,8 +12,9 @@ RSpec.describe Conversations::EventDataPresenter do
         additional_attributes: {},
         meta: {
           sender: conversation.contact.push_event_data,
-          assignee: conversation.assignee,
-          team: conversation.team,
+          assignee: conversation.assigned_entity&.push_event_data,
+          assignee_type: conversation.assignee_type,
+          team: conversation.team&.push_event_data,
           hmac_verified: conversation.contact_inbox.hmac_verified
         },
         id: conversation.display_id,
@@ -31,6 +32,7 @@ RSpec.describe Conversations::EventDataPresenter do
         contact_last_seen_at: conversation.contact_last_seen_at.to_i,
         agent_last_seen_at: conversation.agent_last_seen_at.to_i,
         created_at: conversation.created_at.to_i,
+        updated_at: conversation.updated_at.to_f,
         waiting_since: conversation.waiting_since.to_i,
         priority: nil,
         unread_count: 0

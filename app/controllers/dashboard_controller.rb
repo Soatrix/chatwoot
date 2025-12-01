@@ -1,39 +1,50 @@
 class DashboardController < ActionController::Base
   include SwitchLocale
 
+  GLOBAL_CONFIG_KEYS = %w[
+    LOGO
+    LOGO_DARK
+    LOGO_THUMBNAIL
+    INSTALLATION_NAME
+    WIDGET_BRAND_URL
+    TERMS_URL
+    BRAND_URL
+    BRAND_NAME
+    PRIVACY_URL
+    DISPLAY_MANIFEST
+    CREATE_NEW_ACCOUNT_FROM_DASHBOARD
+    CHATWOOT_INBOX_TOKEN
+    API_CHANNEL_NAME
+    API_CHANNEL_THUMBNAIL
+    ANALYTICS_TOKEN
+    DIRECT_UPLOADS_ENABLED
+    MAXIMUM_FILE_UPLOAD_SIZE
+    HCAPTCHA_SITE_KEY
+    LOGOUT_REDIRECT_LINK
+    DISABLE_USER_PROFILE_UPDATE
+    DEPLOYMENT_ENV
+    INSTALLATION_PRICING_PLAN
+  ].freeze
+
   before_action :set_application_pack
   before_action :set_global_config
   before_action :set_dashboard_scripts
   around_action :switch_locale
   before_action :ensure_installation_onboarding, only: [:index]
   before_action :render_hc_if_custom_domain, only: [:index]
-
+  before_action :ensure_html_format
   layout 'vueapp'
 
   def index; end
 
   private
 
+  def ensure_html_format
+    render json: { error: 'Please use API routes instead of dashboard routes for JSON requests' }, status: :not_acceptable if request.format.json?
+  end
+
   def set_global_config
-    @global_config = GlobalConfig.get(
-      'LOGO', 'LOGO_DARK', 'LOGO_THUMBNAIL',
-      'INSTALLATION_NAME',
-      'WIDGET_BRAND_URL', 'TERMS_URL',
-      'BRAND_URL', 'BRAND_NAME',
-      'PRIVACY_URL',
-      'DISPLAY_MANIFEST',
-      'CREATE_NEW_ACCOUNT_FROM_DASHBOARD',
-      'CHATWOOT_INBOX_TOKEN',
-      'API_CHANNEL_NAME',
-      'API_CHANNEL_THUMBNAIL',
-      'ANALYTICS_TOKEN',
-      'DIRECT_UPLOADS_ENABLED',
-      'HCAPTCHA_SITE_KEY',
-      'LOGOUT_REDIRECT_LINK',
-      'DISABLE_USER_PROFILE_UPDATE',
-      'DEPLOYMENT_ENV',
-      'CSML_EDITOR_HOST'
-    ).merge(app_config)
+    @global_config = GlobalConfig.get(*GLOBAL_CONFIG_KEYS).merge(app_config)
   end
 
   def set_dashboard_scripts
@@ -61,11 +72,22 @@ class DashboardController < ActionController::Base
       VAPID_PUBLIC_KEY: VapidService.public_key,
       ENABLE_ACCOUNT_SIGNUP: GlobalConfigService.load('ENABLE_ACCOUNT_SIGNUP', 'false'),
       FB_APP_ID: GlobalConfigService.load('FB_APP_ID', ''),
-      FACEBOOK_API_VERSION: GlobalConfigService.load('FACEBOOK_API_VERSION', 'v17.0'),
+      INSTAGRAM_APP_ID: GlobalConfigService.load('INSTAGRAM_APP_ID', ''),
+      FACEBOOK_API_VERSION: GlobalConfigService.load('FACEBOOK_API_VERSION', 'v18.0'),
+      WHATSAPP_APP_ID: GlobalConfigService.load('WHATSAPP_APP_ID', ''),
+      WHATSAPP_CONFIGURATION_ID: GlobalConfigService.load('WHATSAPP_CONFIGURATION_ID', ''),
       IS_ENTERPRISE: ChatwootApp.enterprise?,
       AZURE_APP_ID: GlobalConfigService.load('AZURE_APP_ID', ''),
-      GIT_SHA: GIT_HASH
+      GIT_SHA: GIT_HASH,
+      ALLOWED_LOGIN_METHODS: allowed_login_methods
     }
+  end
+
+  def allowed_login_methods
+    methods = ['email']
+    methods << 'google_oauth' if GlobalConfigService.load('ENABLE_GOOGLE_OAUTH_LOGIN', 'true').to_s != 'false'
+    methods << 'saml' if ChatwootHub.pricing_plan != 'community' && GlobalConfigService.load('ENABLE_SAML_SSO_LOGIN', 'true').to_s != 'false'
+    methods
   end
 
   def set_application_pack

@@ -30,7 +30,8 @@ class Conversations::EventDataPresenter < SimpleDelegator
   def push_meta
     {
       sender: contact.push_event_data,
-      assignee: assignee&.push_event_data,
+      assignee: assigned_entity&.push_event_data,
+      assignee_type: assignee_type,
       team: team&.push_event_data,
       hmac_verified: contact_inbox&.hmac_verified
     }
@@ -42,7 +43,8 @@ class Conversations::EventDataPresenter < SimpleDelegator
       contact_last_seen_at: contact_last_seen_at.to_i,
       last_activity_at: last_activity_at.to_i,
       timestamp: last_activity_at.to_i,
-      created_at: created_at.to_i
+      created_at: created_at.to_i,
+      updated_at: updated_at.to_f
     }
   end
 end

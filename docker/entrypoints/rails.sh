@@ -1,34 +1,39 @@
 #!/bin/sh
 
 set -x
+set -e
 
 # Remove a potentially pre-existing server.pid for Rails.
 rm -rf /app/tmp/pids/server.pid
 rm -rf /app/tmp/cache/*
 
-echo "Waiting for postgres to become ready...."
+echo "Waiting for Postgres to become ready...."
 
-# Let DATABASE_URL env take presedence over individual connection params.
-# This is done to avoid printing the DATABASE_URL in the logs
+# Let DATABASE_URL env take precedence over individual connection params.
 $(docker/entrypoints/helpers/pg_database_url.rb)
+
 PG_READY="pg_isready -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USERNAME"
 
 until $PG_READY
 do
-  sleep 2;
+  sleep 2
 done
 
 echo "Database ready to accept connections."
 
-#install missing gems for local dev as we are using base image compiled for production
+# Install missing gems
 bundle install
 
+# Ensure all required gems are installed
 BUNDLE="bundle check"
-
 until $BUNDLE
 do
-  sleep 2;
+  sleep 2
 done
 
-# Execute the main process of the container
+# Run database setup/migrations before starting the app
+echo "Running database setup..."
+bundle exec rails db:setup
+
+# Start the main process (Rails server or whatever was passed in command)
 exec "$@"

@@ -33,7 +33,7 @@ done
 
 # Run database setup/migrations before starting the app
 echo "Running database setup..."
-bundle exec rails db:setup
+bundle exec rails db:chatwoot_prepare
 
 # Start the main process (Rails server or whatever was passed in command)
 exec "$@"

@@ -53,9 +53,9 @@ const state = {
 
 export const getters = {
   get: $state => $state,
-  isOnChatwootCloud: true,
-  isACustomBrandedInstance: true,
-  isAChatwootInstance: true,
+  isOnChatwootCloud: () => true,
+  isACustomBrandedInstance: () => true,
+  isAChatwootInstance: () => true,
 };
 
 export const actions = {};

@@ -31,9 +31,9 @@ do
   sleep 2
 done
 
-# Run database setup/migrations before starting the app
-echo "Running database setup..."
-bundle exec rails db:chatwoot_prepare
+# Database setup/migrations should be run explicitly during install or upgrade.
+# Running db:chatwoot_prepare on every web boot can trigger protected production
+# database setup paths and cause restart loops against persistent databases.
 
 # Start the main process (Rails server or whatever was passed in command)
 exec "$@"

@@ -1,9 +1,10 @@
 class Captain::Llm::ConversationFaqService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
+
   DISTANCE_THRESHOLD = 0.3
 
   def initialize(assistant, conversation)
-    super()
+    super(feature: 'document_faq_generation', account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @content = conversation.to_llm_text
@@ -100,7 +101,7 @@ class Captain::Llm::ConversationFaqService < Llm::BaseAiService
       model: @model,
       temperature: @temperature,
       account_id: @conversation.account_id,
-      conversation_id: @conversation.id,
+      conversation_id: @conversation.display_id,
       feature_name: 'conversation_faq',
       messages: [
         { role: 'system', content: system_prompt },
@@ -118,7 +119,7 @@ class Captain::Llm::ConversationFaqService < Llm::BaseAiService
   def parse_response(response)
     return [] if response.nil?
 
-    JSON.parse(response.strip).fetch('faqs', [])
+    JSON.parse(sanitize_json_response(response)).fetch('faqs', [])
   rescue JSON::ParserError => e
     Rails.logger.error "Error in parsing GPT processed response: #{e.message}"
     []

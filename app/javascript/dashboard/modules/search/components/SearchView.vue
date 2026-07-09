@@ -1,9 +1,12 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
 import { useMapGetter, useStore } from 'dashboard/composables/store.js';
 import { useRouter, useRoute } from 'vue-router';
 import { useTrack } from 'dashboard/composables';
+import { useAccount } from 'dashboard/composables/useAccount';
 import { useI18n } from 'vue-i18n';
+import { useCamelCase } from 'dashboard/composables/useTransformKeys';
+import { generateURLParams, parseURLParams } from '../helpers/searchHelper';
 import {
   ROLES,
   CONVERSATION_PERMISSIONS,
@@ -26,6 +29,7 @@ import SearchResultArticlesList from './SearchResultArticlesList.vue';
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
+const { currentAccount } = useAccount();
 const { t } = useI18n();
 
 const PER_PAGE = 15; // Results per page
@@ -47,7 +51,7 @@ const articleRecords = useMapGetter('conversationSearch/getArticleRecords');
 const uiFlags = useMapGetter('conversationSearch/getUIFlags');
 
 const addTypeToRecords = (records, type) =>
-  records.value.map(item => ({ ...item, type }));
+  records.value.map(item => ({ ...useCamelCase(item, { deep: true }), type }));
 
 const mappedContacts = computed(() =>
   addTypeToRecords(contactRecords, 'contact')
@@ -63,6 +67,11 @@ const mappedArticles = computed(() =>
 );
 
 const isSelectedTabAll = computed(() => selectedTab.value === 'all');
+
+const searchResultSectionClass = computed(() => ({
+  'mt-4': isSelectedTabAll.value,
+  'mt-0.5': !isSelectedTabAll.value,
+}));
 
 const sliceRecordsIfAllTab = items =>
   isSelectedTabAll.value ? items.value.slice(0, 5) : items.value;
@@ -227,30 +236,55 @@ const showViewMore = computed(() => ({
   articles: mappedArticles.value?.length > 5 && isSelectedTabAll.value,
 }));
 
+const filters = ref({
+  from: null,
+  in: null,
+  dateRange: { type: null, from: null, to: null },
+});
+
 const clearSearchResult = () => {
   pages.value = { contacts: 1, conversations: 1, messages: 1, articles: 1 };
   store.dispatch('conversationSearch/clearSearchResults');
 };
 
+const buildSearchPayload = (basePayload = {}, searchType = 'message') => {
+  const payload = { ...basePayload };
+
+  // Only include filters if advanced search is enabled
+  if (isFeatureFlagEnabled(FEATURE_FLAGS.ADVANCED_SEARCH)) {
+    // Date filters apply to all search types
+    if (filters.value.dateRange.from) {
+      payload.since = filters.value.dateRange.from;
+    }
+    if (filters.value.dateRange.to) {
+      payload.until = filters.value.dateRange.to;
+    }
+
+    // Only messages support 'from' and 'inboxId' filters
+    if (searchType === 'message') {
+      if (filters.value.from) payload.from = filters.value.from;
+      if (filters.value.in) payload.inboxId = filters.value.in;
+    }
+  }
+
+  return payload;
+};
+
 const updateURL = () => {
-  // Update route with tab as URL parameter and query as query parameter
-  const params = { accountId: route.params.accountId };
-  const queryParams = {};
+  const params = {
+    accountId: route.params.accountId,
+    ...(selectedTab.value !== 'all' && { tab: selectedTab.value }),
+  };
 
-  // Only add tab param if not 'all'
-  if (selectedTab.value !== 'all') {
-    params.tab = selectedTab.value;
-  }
+  const queryParams = {
+    ...(query.value?.trim() && { q: query.value.trim() }),
+    ...generateURLParams(
+      filters.value,
+      isFeatureFlagEnabled(FEATURE_FLAGS.ADVANCED_SEARCH)
+    ),
+  };
 
-  if (query.value?.trim()) {
-    queryParams.q = query.value.trim();
-  }
-
-  router.replace({
-    name: 'search',
-    params,
-    query: queryParams,
-  });
+  router.replace({ name: 'search', params, query: queryParams });
 };
 
 const onSearch = q => {
@@ -259,7 +293,13 @@ const onSearch = q => {
   updateURL();
   if (!q) return;
   useTrack(CONVERSATION_EVENTS.SEARCH_CONVERSATION);
-  store.dispatch('conversationSearch/fullSearch', { q, page: 1 });
+
+  const searchPayload = buildSearchPayload({ q, page: 1 });
+  store.dispatch('conversationSearch/fullSearch', searchPayload);
+};
+
+const onFilterChange = () => {
+  onSearch(query.value);
 };
 
 const onBack = () => {
@@ -280,12 +320,16 @@ const loadMore = () => {
   };
 
   if (uiFlags.value.isFetching || selectedTab.value === 'all') return;
+
   const tab = selectedTab.value;
   pages.value[tab] += 1;
-  store.dispatch(SEARCH_ACTIONS[tab], {
-    q: query.value,
-    page: pages.value[tab],
-  });
+
+  const payload = buildSearchPayload(
+    { q: query.value, page: pages.value[tab] },
+    tab
+  );
+
+  store.dispatch(SEARCH_ACTIONS[tab], payload);
 };
 
 const onTabChange = tab => {
@@ -295,12 +339,26 @@ const onTabChange = tab => {
 
 onMounted(() => {
   store.dispatch('conversationSearch/clearSearchResults');
-
-  // Auto-execute search if query parameter exists
-  if (route.query.q) {
-    onSearch(route.query.q);
-  }
+  store.dispatch('agents/get');
 });
+
+// Wait for the account before restoring URL filters: the ADVANCED_SEARCH flag
+// derives from account.features (loaded async), and reading it too early strips
+// the filter params from the URL. `immediate` covers the already-loaded case.
+watch(
+  () => currentAccount.value?.id,
+  id => {
+    if (!id) return;
+    filters.value = parseURLParams(
+      route.query,
+      isFeatureFlagEnabled(FEATURE_FLAGS.ADVANCED_SEARCH)
+    );
+    if (route.query.q) {
+      onSearch(route.query.q);
+    }
+  },
+  { immediate: true }
+);
 
 onUnmounted(() => {
   query.value = '';
@@ -309,7 +367,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full bg-n-background">
+  <div class="flex flex-col w-full h-full bg-n-surface-1">
     <div class="flex w-full p-4">
       <NextButton
         :label="t('GENERAL_SETTINGS.BACK')"
@@ -321,9 +379,14 @@ onUnmounted(() => {
       />
     </div>
     <section class="flex flex-col flex-grow w-full h-full overflow-hidden">
-      <div class="w-full max-w-4xl mx-auto">
+      <div class="w-full max-w-5xl mx-auto z-30">
         <div class="flex flex-col w-full px-4">
-          <SearchHeader :initial-query="query" @search="onSearch" />
+          <SearchHeader
+            v-model:filters="filters"
+            :initial-query="query"
+            @search="onSearch"
+            @filter-change="onFilterChange"
+          />
           <SearchTabs
             v-if="query"
             :tabs="tabs"
@@ -333,7 +396,7 @@ onUnmounted(() => {
         </div>
       </div>
       <div class="flex-grow w-full h-full overflow-y-auto">
-        <div class="w-full max-w-4xl mx-auto px-4 pb-6">
+        <div class="w-full max-w-5xl mx-auto px-4 pb-6">
           <div v-if="showResultsSection">
             <Policy
               :permissions="[...ROLES, CONTACT_PERMISSIONS]"
@@ -345,6 +408,7 @@ onUnmounted(() => {
                 :contacts="contacts"
                 :query="query"
                 :show-title="isSelectedTabAll"
+                class="mt-0.5"
               />
               <NextButton
                 v-if="showViewMore.contacts"
@@ -367,6 +431,7 @@ onUnmounted(() => {
                 :messages="messages"
                 :query="query"
                 :show-title="isSelectedTabAll"
+                :class="searchResultSectionClass"
               />
               <NextButton
                 v-if="showViewMore.messages"
@@ -389,6 +454,7 @@ onUnmounted(() => {
                 :conversations="conversations"
                 :query="query"
                 :show-title="isSelectedTabAll"
+                :class="searchResultSectionClass"
               />
               <NextButton
                 v-if="showViewMore.conversations"
@@ -413,6 +479,7 @@ onUnmounted(() => {
                 :articles="articles"
                 :query="query"
                 :show-title="isSelectedTabAll"
+                :class="searchResultSectionClass"
               />
               <NextButton
                 v-if="showViewMore.articles"
@@ -425,7 +492,7 @@ onUnmounted(() => {
               />
             </Policy>
 
-            <div v-if="showLoadMore" class="flex justify-center mt-4 mb-6">
+            <div v-if="showLoadMore" class="flex justify-center mt-3 mb-6">
               <NextButton
                 v-if="!isSelectedTabAll"
                 :label="t(`SEARCH.LOAD_MORE`)"

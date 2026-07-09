@@ -18,6 +18,9 @@ on:
 env:
   DOCKER_REPO: fibbicles/chatwoot
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:

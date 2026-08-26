@@ -21,7 +21,9 @@ class SamlUserBuilder
   private
 
   def sync_avatar
-    username = auth_attribute('preferred_username')
+    username =
+		@auth_hash.dig('extra', 'raw_info', 'preferred_username') ||
+		auth_attribute('preferred_username')
     return if username.blank?
   
     avatar_url = "https://cloud.soatrix.com/avatar/#{ERB::Util.url_encode(username)}/512/dark"

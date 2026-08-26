@@ -21,6 +21,9 @@ class SamlUserBuilder
   private
 
   def sync_avatar
+	Rails.logger.info "SAML INFO: #{@auth_hash['info'].inspect}"
+	Rails.logger.info "SAML RAW INFO: #{@auth_hash.dig('extra', 'raw_info').inspect}"
+
     username =
 		@auth_hash.dig('extra', 'raw_info', 'preferred_username') ||
 		auth_attribute('preferred_username')

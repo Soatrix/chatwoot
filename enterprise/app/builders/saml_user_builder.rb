@@ -9,11 +9,25 @@ class SamlUserBuilder
 
   def perform
     @user = find_or_create_user
-    add_user_to_account if @user.persisted?
+  
+    if @user.persisted?
+      add_user_to_account
+      sync_avatar
+    end
+  
     @user
   end
 
   private
+
+  def sync_avatar
+    username = auth_attribute('preferred_username')
+    return if username.blank?
+  
+    avatar_url = "https://cloud.soatrix.com/avatar/#{ERB::Util.url_encode(username)}/512/dark"
+  
+    Avatar::AvatarFromUrlJob.perform_later(@user, avatar_url)
+  end
 
   def find_or_create_user
     user = User.from_email(auth_attribute('email'))

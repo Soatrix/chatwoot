@@ -24,14 +24,19 @@ class SamlUserBuilder
 	Rails.logger.info "SAML INFO: #{@auth_hash['info'].inspect}"
 	Rails.logger.info "SAML RAW INFO: #{@auth_hash.dig('extra', 'raw_info').inspect}"
 
-    username =
+	username =
 		@auth_hash.dig('extra', 'raw_info', 'preferred_username') ||
 		auth_attribute('preferred_username')
-    return if username.blank?
 
-    avatar_url = "https://cloud.soatrix.com/avatar/#{ERB::Util.url_encode(username)}/512/dark"
-  
-    Avatar::AvatarFromUrlJob.perform_later(@user, avatar_url)
+	Rails.logger.info "SAML AVATAR USERNAME: #{username.inspect}"
+
+	return if username.blank?
+
+	avatar_url = "https://cloud.soatrix.com/avatar/#{ERB::Util.url_encode(username)}/512/dark"
+
+	Rails.logger.info "SAML AVATAR URL: #{avatar_url}"
+
+	Avatar::AvatarFromUrlJob.perform_later(@user, avatar_url)
   end
 
   def find_or_create_user

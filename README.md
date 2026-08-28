@@ -1,3 +1,5 @@
+**Please Note:** This is a private enterprise fork used specifically for testing integration with other system applications before production deployment. Enterprise features have been enabled but not for production use. **DO NOT** use this in production due to the modifications and restrictions of the existing enterprise licence.
+
 <img src="./.github/screenshots/header.png#gh-light-mode-only" width="100%" alt="Header light mode"/>
 <img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="Header dark mode"/>
 

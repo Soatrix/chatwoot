@@ -18,8 +18,16 @@ export default {
       axios
         .delete(urlData.url)
         .then(response => {
+          const samlLogoutUrl = response.data?.saml_logout_url;
+
           deleteIndexedDBOnLogout();
           clearCookiesOnLogout();
+
+          if (samlLogoutUrl) {
+            window.location.assign(samlLogoutUrl);
+            return;
+          }
+
           resolve(response);
         })
         .catch(error => {

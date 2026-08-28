@@ -9,13 +9,29 @@ module Avatarable
   included do
     has_one_attached :avatar
     validate :acceptable_avatar, if: -> { avatar.changed? }
-    after_save :fetch_avatar_from_gravatar
+    after_save :fetch_external_avatar
   end
 
   def avatar_url
     return url_for(avatar.representation(resize_to_fill: [250, nil])) if avatar.attached? && avatar.representable?
 
     ''
+  end
+
+  def fetch_external_avatar
+    if is_a?(User)
+      nextcloud_username = custom_attributes&.dig('nextcloud_username')
+
+      if nextcloud_username.present?
+        return unless saved_changes.key?(:email) || saved_changes.key?(:custom_attributes)
+
+        avatar_url = "https://cloud.soatrix.com/avatar/#{ERB::Util.url_encode(nextcloud_username)}/512/dark"
+        Avatar::AvatarFromUrlJob.perform_later(self, avatar_url)
+        return
+      end
+    end
+
+    fetch_avatar_from_gravatar
   end
 
   def fetch_avatar_from_gravatar

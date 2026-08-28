@@ -21,9 +21,9 @@ class SamlUserBuilder
   private
 
   def sync_avatar_identity
-    username =
-      @auth_hash.dig('extra', 'raw_info', 'preferred_username') ||
-      auth_attribute('preferred_username')
+    raw_info = @auth_hash.dig('extra', 'raw_info')
+    username = raw_info&.[]('preferred_username') || auth_attribute('preferred_username')
+    username = username.first if username.is_a?(Array)
 
     return if username.blank?
     return if @user.custom_attributes&.dig('nextcloud_username') == username
@@ -87,16 +87,12 @@ class SamlUserBuilder
     account = Account.find_by(id: @account_id)
     return unless account
 
-    # Create account_user if not exists
     account_user = AccountUser.find_or_create_by(
       user: @user,
       account: account
     )
 
-    # Set default role as agent if not set
     account_user.update(role: 'agent') if account_user.role.blank?
-
-    # Handle role mappings if configured
     apply_role_mappings(account_user, account)
   end
 
@@ -130,10 +126,11 @@ class SamlUserBuilder
   end
 
   def saml_groups
-    # Groups can come from different attributes depending on IdP
-    @auth_hash.dig('extra', 'raw_info', 'groups') ||
-      @auth_hash.dig('extra', 'raw_info', 'Group') ||
-      @auth_hash.dig('extra', 'raw_info', 'memberOf') ||
+    raw_info = @auth_hash.dig('extra', 'raw_info')
+
+    raw_info&.[]('groups') ||
+      raw_info&.[]('Group') ||
+      raw_info&.[]('memberOf') ||
       []
   end
 end

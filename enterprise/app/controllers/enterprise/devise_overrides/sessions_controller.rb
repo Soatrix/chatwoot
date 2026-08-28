@@ -20,8 +20,16 @@ module Enterprise::DeviseOverrides::SessionsController
   end
 
   def destroy
+    @saml_logout_url = saml_logout_url_for(@resource)
     create_audit_event('sign_out')
     super
+  end
+
+  def render_destroy_success
+    render json: {
+      success: true,
+      saml_logout_url: @saml_logout_url
+    }.compact
   end
 
   def create_audit_event(action)
@@ -54,5 +62,22 @@ module Enterprise::DeviseOverrides::SessionsController
         created_at: created_at
       }
     end
+  end
+
+  private
+
+  def saml_logout_url_for(user)
+    return unless user&.provider == 'saml'
+    return unless session['saml_uid'].present?
+
+    account_id = AccountSamlSettings.where(account_id: user.account_users.select(:account_id)).pick(:account_id)
+    return unless account_id
+
+    query = {
+      account_id: account_id,
+      RelayState: '/app/login'
+    }.to_query
+
+    "/omniauth/saml/spslo?#{query}"
   end
 end
